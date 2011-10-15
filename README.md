@@ -21,6 +21,7 @@ Examples
 Development
 -----------
 QR-Logo is hosted at <a href="http://github.com/kaarposoft/qrlogo">GitHub</a>
+
 * <a href="http://github.com/kaarposoft/qrlogo">Source Code</a>
 * <a href="http://github.com/kaarposoft/qrlogo/issues">Bug report</a>
 
