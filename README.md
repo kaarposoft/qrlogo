@@ -8,6 +8,14 @@ QR-Logo can embed your logo into a
 
 QR-Logo is pure JavaScript, so it runs in the browser.
 
+Examples
+--------
+
+![](http://qrlogo.kaarposoft.dk/testpics/qr_logo_01.png)
+![](http://qrlogo.kaarposoft.dk/testpics/qr_kaarpo.png)
+![](http://qrlogo.kaarposoft.dk/testpics/qr_kaarpo45.png)
+![](http://qrlogo.kaarposoft.dk/testpics/qr_firefox.png)
+
 
 Acknowledgements
 ----------------
