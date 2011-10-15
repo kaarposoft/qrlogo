@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://srv02/www/qrlogo/" />
+<title>t_encode_03</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">t_encode_03</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/www/qrlogo/qrencode.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>QR Encode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=nojs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=noHTML5canvas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_text</td>
+	<td>v1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_bg_color</td>
+	<td>FFFFFF</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_module_color</td>
+	<td>000000</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=qrlogo_errorcorrection</td>
+	<td>label=Level L (7%)</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_pixpermodule</td>
+	<td>4</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>qrlogo_version</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>this.browserbot.getCurrentWindow().document.getElementById('qrlogo_canvas').toDataURL()</td>
+	<td>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHQAAAB0CAYAAABUmhYnAAABzklEQVR4nO3WsZECQQxFQQIgtMs/FywuhkWaGe3fNp4FRUnqMXh9Pt+vcnqdHkBABfQ5AQ0LaFhAwwIaFtCwgIYFNCygYQENC2hYQMMCGlYZ9O/93trVearfn7YfUKBAJ+8HFGgNtPp71YPvBp92P6DD9wMKdNZAQIeDVv8UnAaYth/QsP2Ahu0HNGy/eNDV4Kf3AwoU6OT9gAK9N+jV+VY/KKBAgQIFCrQL9O4P5vR+QIHOGggoUKArQVfXDdL9YLr3AwoUKNBBCwNtBp3e7oOeDijQewU0LKCLD1b909MNVJ2n+3OgQIECBfoc0O52H2z396sPEChQoECB5oB2D7QaePWDWA0GFChQoECB/nrwbvDV8+6eDyhQoECB3he0ClQ9SHWe1Q+qGxAoUKBAgd4X9G51P4BpwECB3jugYQFdfKDqQXd/XgXoBgQKFChQoDmg3QNe/f3dD6p7XqBAgQIFCvTXA1d/v/vzaWBAgQIFChQoUKBAgQIFCnQW6Gngq/MABQoUKFCgqwbeDVQF3H0foECBAgWaA7q60w+ke3+gQIECBfpcUM0KaFhAwwIaFtCwgIYFNCygYQENC2hYQMMCGhbQsICGBTQsoGH9A0wx7kYl3pcCAAAAAElFTkSuQmCC</td>
+</tr>
+</tbody></table>
+</body>
+</html>

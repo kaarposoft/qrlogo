@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://srv02/www/qrlogo/" />
+<title>t_encode_01</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">t_encode_01</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/www/qrlogo/qrencode.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>QR Encode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=nojs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=noHTML5canvas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_text</td>
+	<td>http://qrlogo.kaarposoft.dk</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_bg_color</td>
+	<td>FFE6E9</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_module_color</td>
+	<td>052CF2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=qrlogo_errorcorrection</td>
+	<td>label=Level L (7%)</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_pixpermodule</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>qrlogo_version</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>this.browserbot.getCurrentWindow().document.getElementById('qrlogo_canvas').toDataURL()</td>
+	<td>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEIAAABCCAYAAADjVADoAAABU0lEQVR4nO3UwRGDMBBD0RRAaem/F06kBEsrmZDJP+wBxtjrNyte53ld1HW9vt3AUwoIIIAAAgggihDv4xjVar/0udUPEFMIdcTci6kXbvUDRBtiNXqtRqdg036AuAtCXa/+5ID4dQi3IRUWiKdApHCr9+p3036AaEG4lY66GwW1HyBSiFa5DboRSAsIFWIahXRdO1JAtKOR/tTcdasLtaMFRAsiHfFpVFRwFQQIFUK92HTkVajpyAPRhlBBXJg0Au45QOyOhnugGoHWOjdCQLgQu0Z19T59rkcDCHGjtJF0HzVCQOyGUEc//d6NogoPhAvRKvcCbiSmUQTChVBHUx3tFpDbHxBtCDcC0xF2L6ICArELIh3lNHKtKADxdAh19NXzXRgg7oaYNr6CVPsFYhdECufu49a0fyBciLQh9xwXOO0HCBXiXwoIIIAAAggggLDrAyA6OJTs79lGAAAAAElFTkSuQmCC</td>
+</tr>
+</tbody></table>
+</body>
+</html>

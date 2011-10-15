@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://srv02/www/qrlogo/" />
+<title>t_logo_02</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">t_logo_02</td></tr>
+</thead><tbody>
+<tr>
+	<td>store</td>
+	<td>/tmp/testpics</td>
+	<td>testpics</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>index.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>QR-Logo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=nojs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=noHTML5canvas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_text</td>
+	<td>testing</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_files</td>
+	<td>${testpics}/bluedot.png</td>
+</tr>
+<tr>
+	<td>waitForEditable</td>
+	<td>id=qrlogo_start</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=qrlogo_start</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForNotEditable</td>
+	<td>id=qrlogo_start</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForEditable</td>
+	<td>id=qrlogo_start</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyXpathCount</td>
+	<td>//div[@id='div_best_qrlogos_4']/*</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>verifyXpathCount</td>
+	<td>//div[@id='div_best_qrlogos_3']/*</td>
+	<td>0</td>
+</tr>
+<tr>
+	<td>verifyXpathCount</td>
+	<td>//div[@id='div_best_qrlogos_2']/*</td>
+	<td>6</td>
+</tr>
+<tr>
+	<td>verifyXpathCount</td>
+	<td>//div[@id='div_best_qrlogos_1']/*</td>
+	<td>21</td>
+</tr>
+<tr>
+	<td>verifyEval</td>
+	<td>this.browserbot.getCurrentWindow().document.getElementById('div_best_qrlogos_2').firstChild.firstChild.toDataURL()</td>
+	<td>data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHQAAAB0CAYAAABUmhYnAAAD2UlEQVR4nO3bMU/yQBzHcd8DiXFyZXxegq+AhBgZnFjM8wKcmdhcHHkRrOJuwmYccZYI0UBCTDShJA/cPYOBtAWFcne965/v8JsK1/vfpy3Xcj3Ss74mcnLkuwMEUALo4QRQYQFUWAAVFkCFBVBhAVRYABUWQIUFUGEBVFgAFRZAhcUYtFrSuWbb/k37G1p9gAIKKKABFQyoY1DT9kJr3/f+AQU0rA6F1r7v/QMKaL4DYjopsb3/0OsDFFBAQ64PUECLDWq7f0WrD1BAAQ25PkABDRs0a3tFqw9QQItdMKCAFqq+4EDzbt90gEOvD1BAAQ25PkABNeuQ62QdENvb864PUEABBTSgggG1DOo7piC++287BwV6ebrQjUqk2zcf6vnhXX2+vSo966ejdfTivS5AfwG9Ppvpp/uRyti2KiKseNDnh/eskOuwAdRZWFBrv3kbzi4V9fWgN9Sd1kQ3a1NdL8/1+bHS9fJcN2tT3WlN9KA31Cpab+/26svLpAzQ7yTOqsW0r7vtsb44UTvNNC9OlO62x3oxTbbbvvlYO1sBdQ+aGPRBb6jr5fletxD18lwPesNf2wfUJWjqMvt4N9oLMp3Hu9GP+xEHmhXA9vZl/v755wTzR9Qd67cNdjCg8dnsoDe0irlM6vKrAHUEen02W21fTPt7/2ZuS708T06UohdAXYDGHxp022MnmMt02+PEWSoO1PQAyHqArH0/NkFRUX/nW5N9c3GikvepqYmYb+Dig8a+6+q3M50NtzKAWgRdXW47rUkuoJ3WJN7nX+9LATUAbdamuYA2a9PDBc2hwNWAuprdplMvz1f7/3x7zTQxcj3eokDPj91OiJY5P1ar/aso20wX0AygnKHCQH38hj4/vAOapeBtn4//peVjltu++UiAmo7PwYM2KtHqsz7uQxuVyAgE0FQuTxerz/p4UnR5ugDUJmi1FNazXPGguST2PNX3vy22D+jDBP1OEP+HAuoovlYsAGozBVhTFDyoi0ubScHppZauV/1tG4+s2wHd0J80qq11udswAXUEWi1pfXv1tbbNZOX8ru+5AOoItFr6XtqZ97st4kBtdzDrAG3KPm+fPd2PVHw1oasDHFCDAdzl/dBGJUo8zgM0YNBdBtS0HkABLRao7wHOu7286wEUUEABBRRQWwNgu33X9QEKKKCAAgpoqKCm9diuzzU4oIACCiigckDzbt/0ALG93fX4AAoooIACKgfUdWwfEHn3zzUwoIACCiigxQElYQVQYQFUWAAVFkCFBVBhAVRYABUWQIUFUGEBVFgAFRZAhQVQYQFUWAAVlv8ngIAlK18R+wAAAABJRU5ErkJggg==</td>
+</tr>
+</tbody></table>
+</body>
+</html>

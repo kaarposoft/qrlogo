@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://srv02/www/qrlogo/" />
+<title>t_encode_02</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">t_encode_02</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/www/qrlogo/qrencode.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>QR Encode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=nojs</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=noHTML5canvas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_text</td>
+	<td>To be, or not to be, that is the question: // Whether 'tis nobler in the mind to suffer // The slings and arrows of outrageous fortune, // Or to take arms against a sea of troubles, // And by opposing end them? To die, to sleep, // No more; and by a sleep to say we end // The heart-ache, and the thousand natural shocks // That flesh is heir to: 'tis a consummation // Devoutly to be wished. To die, to sleep; // To sleep, perchance to dream -- ay, there's the rub: // For in that sleep of death what dreams may come, // When we have shuffled off this mortal coil, // Must give us pause -- there's the respect // That makes calamity of so long life.</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_bg_color</td>
+	<td>EEEEEE</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_module_color</td>
+	<td>222222</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=qrlogo_errorcorrection</td>
+	<td>label=Level L (7%)</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=qrlogo_pixpermodule</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>qrlogo_version</td>
+	<td>18</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>this.browserbot.getCurrentWindow().document.getElementById('qrlogo_canvas').toDataURL()</td>
+	<td>data:image/png;base64,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</td>
+</tr>
+</tbody></table>
+</body>
+</html>
