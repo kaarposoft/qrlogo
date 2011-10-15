@@ -1,0 +1,57 @@
+/*
+       QR-Logo: http://qrlogo.kaarposoft.dk
+
+       Copyright (C) 2011 Henrik Kaare Poulsen
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+*/
+
+div.logo_output {
+	position: relative;
+}
+
+div#div_current_qrlogo {
+	min-height: 25em;
+}
+
+div.logo_grades {
+    background-color:rgba(233, 233, 233,0.9);
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 1em;
+    display: none;
+    z-index: 2;
+}
+
+div#div_current_qrlogo canvas {
+    float: left;
+}
+
+div#div_current_qrlogo div.logo_grades {
+    display: block;
+    position: relative;
+    float: left;
+}
+
+div.logo_output:hover div.logo_grades {
+	display: block;
+}
+
+div.logo_grades div {
+	margin-bottom: 1em;
+}
+
+#h_best_qrlogos {
+	margin: 0.5em 0.5em 0 0 ;
+}

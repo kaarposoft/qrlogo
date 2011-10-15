@@ -1,0 +1,195 @@
+/*
+       QR-Logo: http://qrlogo.kaarposoft.dk
+
+       Copyright (C) 2011 Henrik Kaare Poulsen
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+*/
+
+
+/* RESET */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+/* FONTS */
+
+* { font-family: "Segoe UI", "Candara", "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif; }
+
+div#div_debug_output * , div#div_debug_detailed_output * { font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace; }
+
+
+/* COLORS */
+
+body {
+	background-color: #e8e8e0;
+	color: #000000;
+}
+
+div.nav, div.section {
+	background-color: #fbf9f7;
+}
+
+div.jserror {
+	background-color: #ff8888;
+}
+
+b { color: #592504; }
+
+div.nav li.selected {
+	font-weight:bold; 
+	color: #592504;
+	}
+
+a:link,
+a:visited,
+a:active,
+a:hover
+	{ color: #803c13; }
+
+div.nav a:hover {
+	background-color: #592504;
+	color: #ffe1cf;
+}
+
+h1, h2, h3 { color: #973f00; }
+
+
+/* CENTER PAGE */
+
+body {
+	margin: 0 auto;
+	padding: 1em 2em 2em 2em;
+}
+
+
+/* SPACING */
+
+div.nav {
+	margin-bottom: 1em;
+}
+
+div.nav ul, div.nav li {
+	margin: 0;
+}
+
+div.section, div.jserror {
+	margin: 1em 0 1em 0;
+	padding: 1em;
+}
+
+div.buttons {
+	margin: 1em;
+}
+
+button { padding: 0.5ex 1ex; } 
+
+canvas {
+	margin: 5px;
+}  
+
+h1, h2, h3, h4 {
+	margin-bottom: 0.2em;
+}
+
+ul {
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+	}
+
+li {
+	margin-left: 1.5em;
+	padding-top: 0.2em;
+	}
+
+p { margin: 0.5em 0; }
+
+
+/* TOP AREA ( LOGO + NAVIGATION ) */
+
+div.nav {
+	font-size: 90%; 
+	padding: 0.2ex;
+	border-top: 1px solid #592504; 
+	border-bottom: 1px solid #592504;
+}
+
+div.nav li {
+	margin-left: 0.5em;
+	margin-right: 1.0em;
+	list-style:none;
+	float:left;
+}
+
+div.nav a:link,
+div.nav a:visited,
+div.nav a:active,
+div.nav a:hover
+	{ text-decoration: none; }
+
+
+/*  CLEARFIX
+ *  http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack/
+*/
+
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+
+.clearfix { display: inline-block; }
+
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+
+/* SECTIONS */
+
+div.section, div.jserror {
+    border: 1px solid #ffe1cf;
+    -moz-box-shadow: 5px 5px 5px #ccc;
+    -webkit-box-shadow: 5px 5px 5px #ccc;
+    box-shadow: 5px 5px 5px #ccc;
+
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+}
+
+table.table_borders td
+      { border: 1px solid #ffe1cf;} 
+
+table.table_bold_borders td, table.table_bold_borders th
+      { border: 1px solid #592504;} 
+
+
+/* TABLES */
+
+table {
+    border-collapse:collapse;
+    margin-bottom: 1em;
+}
+
+td { vertical-align: top;}
+td, th { padding: 0.5ex 1ex; }
+
