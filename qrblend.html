@@ -5,7 +5,7 @@
     <!--
        QR-Logo: http://qrlogo.kaarposoft.dk
 
-       Copyright (C) 2011-2018 Henrik Kaare Poulsen
+       Copyright (C) 2018 Henrik Kaare Poulsen
 
        Licensed under the Apache License, Version 2.0 (the "License");
        you may not use this file except in compliance with the License.
@@ -26,32 +26,32 @@
 	<script type="text/javascript" src="common.js"></script>
 	<script type="text/javascript" src="reedsolomon.js"></script>
 	<script type="text/javascript" src="qrcodedecode.js"></script>
-	<script type="text/javascript" src="qrencode.js"></script>
+	<script type="text/javascript" src="qrblend.js"></script>
 	<script type="text/javascript" src="jscolor/jscolor.js"></script>
 
 	<link rel="StyleSheet" type="text/css" href="default.css">
 	<link rel="shortcut icon" href="favicon.ico" />
 
-	<title>QR Encode</title>
+	<title>QR Blend</title>
 
 </head>
 
-<body onload="qrencode_onload();">
+<body onload="qrblend_onload();">
 
     <div class="nav clearfix">
         <ul>
             <li><a href="index.html">QR-Logo</a>
-            <li><a href="qrblend.html">Blend</a>
-            <li class="selected">Encode
+            <li class="selected">Blend
+            <li><a href="qrencode.html">Encode</a>
             <li><a href="qrdecode.html">Decode</a>
             <li><a href="about.html">About</a>
         </ul>
     </div>
 
     <div class="section">
-        <h1>QR Encode</h1>
-        Encode your own text into a <a href="http://en.wikipedia.org/wiki/QRcode">QR Code</a>.
-        <p>The main feature of this site is <a href="index.html">QR-Logo</a>, which can embed your logo into a <a href="http://en.wikipedia.org/wiki/QRcode">QR Code</a>.
+        <h1>QR Blend</h1>
+        Blend your own logo into a <a href="http://en.wikipedia.org/wiki/QRcode">QR Code</a>.
+        <p>See also <a href="index.html">QR-Logo</a>, which can embed your logo into a <a href="http://en.wikipedia.org/wiki/QRcode">QR Code</a>.
         <p>QR-Logo is pure JavaScript, so it runs in your own browser.
     </div>
 
@@ -73,19 +73,19 @@
 
         <div class="section">
 
-            <h1>Encode Text into QR Code</h1>
+            <h1>Blend logo into QR Code</h1>
 
             <table><tr>
-                <td colspan="2">Text:<br>
+                <td>Upload logo:<br>
+                    <input type="file" id="qrlogo_files" name="files[]" onchange="on_logo_file_upload(event);"/></td>
+                <td rowspan="2"><canvas width="10" height="10" id="qrlogo_input_canvas"></canvas></td>
+            </tr><tr>
+                <td>Text:<br>
                     <textarea id="qrlogo_text" rows="10" cols="40">http://qrlogo.kaarposoft.dk</textarea></td>
             </tr><tr>
+
                 <td>Background color:<br>
                     <input id="qrlogo_bg_color" class="color {pickerMode:'HSV'}" value="F9F9FF"></td>
-                <td><input id="qrlogo_debug_checkbox" type="checkbox">Produce debug output</td>
-            </tr><tr>
-                <td>Module color:<br>
-                    <input id="qrlogo_module_color" class="color {pickerMode:'HVS'}" value="4C0C0C">
-                </td>
                 <td><label>Error Correction:
                     <select id="qrlogo_errorcorrection">
                     <option value="1">Level L (7%)</option>
@@ -94,7 +94,46 @@
                     <option value="2" selected>Level H (30%)</option>
                     </select>
                     </label>
+                    <br/>
+                    <label>Text mode:
+                    <select id="qrlogo_mode">
+                    <option value="4" selected>8bit</option>
+                    <option value="2">Alphanumeric</option>
+                    <option value="1">Numeric</option>
+                    </select>
+                    </label>
                 </td>
+            </tr><tr>
+                <td>Module color:<br>
+                    <input id="qrlogo_module_color" class="color {pickerMode:'HVS'}" value="4C0C0C">
+                <td><label>Shade factor: <select id="qrlogo_shadefactor">
+                    <option value="0.0">0.0</option>
+                    <option value="0.1">0.1</option>
+                    <option value="0.2">0.2</option>
+                    <option selected value="0.3">0.3</option>
+                    <option value="0.4">0.4</option>
+                    <option value="0.5">0.5</option>
+                    <option value="0.6">0.6</option>
+                    <option value="0.7">0.7</option>
+                    <option value="0.8">0.8</option>
+                    <option value="0.9">0.9</option>
+                    <option value="1.0">1.0</option>
+                    </select>
+                </label><br/>
+                <label>Tint factor: <select id="qrlogo_tintfactor">
+                    <option value="0.0">0.0</option>
+                    <option value="0.1">0.1</option>
+                    <option value="0.2">0.2</option>
+                    <option selected value="0.3">0.3</option>
+                    <option value="0.4">0.4</option>
+                    <option value="0.5">0.5</option>
+                    <option value="0.6">0.6</option>
+                    <option value="0.7">0.7</option>
+                    <option value="0.8">0.8</option>
+                    <option value="0.9">0.9</option>
+                    <option value="1.0">1.0</option>
+                    </select>
+                </label></td>
             </tr><tr>
                 <td><label>Pixels per module: <select id="qrlogo_pixpermodule">
                     <option value="1">1</option>
@@ -109,19 +148,12 @@
                     <option value="10">10</option>
                     </select>
                 </label></td>
-                <td><label>Text mode:
-                    <select id="qrlogo_mode">
-                    <option value="4" selected>8bit</option>
-                    <option value="2">Alphanumeric</option>
-                    <option value="1">Numeric</option>
-                    </select>
-                    </label>
-                </td>
+                <td><input id="qrlogo_debug_checkbox" type="checkbox">Produce debug output</td>
             </tr></table>
 
         </div>
         <div class="buttons">
-            <button type="button" onclick="qrencode_onencode();">Encode QR</button>
+            <button type="button" id="blend_button" onclick="qrblend_onblend();" disabled="disabled">Blend QR</button>
         </div>
 
     </form>
@@ -131,7 +163,7 @@
         <h2>Generated QR code</h2>
         <p>Version: <span id="qrlogo_version"></span></p>
         <canvas id="qrlogo_canvas"></canvas>
-        <p><a href="#" onclick="qrencode_download();">Download QR code</a></p>
+        <p><a href="#" onclick="qrblend_download();">Download QR code</a></p>
     </div>
 
     <div id="div_debug" class="section" style="display:none">
