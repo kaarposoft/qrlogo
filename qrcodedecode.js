@@ -1015,9 +1015,11 @@ QRCodeDecode.prototype = {
 
 	findImageBorders: function () {
 		var i, j, n;
-		var limit = 7;
-		var skew_limit = 2;
+		var limit;
+		var dark_parts = 0.3;
+		var skew_limit = this.image.height/64;
 
+                limit = this.image.height * dark_parts;
 		for (i = 0; i < this.image.width; i++) {
 			n = 0;
 			for (j = 0; j < this.image.height; j++) {
@@ -1027,6 +1029,7 @@ QRCodeDecode.prototype = {
 		}
 		this.image_left = i;
 
+                limit = this.image.height * dark_parts;
 		for (i = this.image.width-1; i >= 0; i--) {
 			n = 0;
 			for (j = 0; j < this.image.height; j++) {
@@ -1036,6 +1039,7 @@ QRCodeDecode.prototype = {
 		}
 		this.image_right = i;
 
+                limit = this.image.width * dark_parts;
 		for (j = 0; j < this.image.height; j++) {
 			n = 0;
 			for (i = 0; i < this.image.width; i++) {
@@ -1045,6 +1049,7 @@ QRCodeDecode.prototype = {
 		}
 		this.image_top = j;
 
+                limit = this.image.width * dark_parts;
 		for (j = this.image.height-1; j>=0; j--) {
 			n = 0;
 			for (i = 0; i < this.image.width; i++) {
@@ -1055,6 +1060,8 @@ QRCodeDecode.prototype = {
 		this.image_bottom = j;
 
 		if (this.logger) {
+			this.logger.debug("skew_limit=" + skew_limit);
+			this.logger.debug("skew=" + Math.abs( (this.image_right-this.image_left) - (this.image_bottom-this.image_top)));
 			this.logger.debug("left=" + this.image_left + " right=" + this.image_right + " top=" + this.image_top + " bottom=" + this.image_bottom);
 		}
 
@@ -1295,13 +1302,12 @@ QRCodeDecode.prototype = {
 
 		/* ************************************************************ */
 		function grade_finder_patterns(finder_pattern) {
-			var g = 4;
-			var i;
-			for (i = 0; i < 3; i++) {
-				g = g - (64-finder_pattern[i]);
-			}
-			if (g < 0) { g = 0; }
-			return g;
+                        var p = finder_pattern[0]+finder_pattern[1]+finder_pattern[2];
+                        if (p >= 64+64+64) { return 4; }
+                        if (p >= 62+62+62) { return 3; }
+                        if (p >= 58+58+58) { return 2; }
+                        if (p >= 42+42+42) { return 1; }
+                        return 0;
 		}
 
 		/* ************************************************************ */
@@ -1334,14 +1340,11 @@ QRCodeDecode.prototype = {
 			var module_size = qr.image_size/n_modules;
 			var finder_pattern = [0, 0, 0];
 			finder_pattern[0] = matchFinderPattern(qr, 0,           0,           7,	7, module_size);
-			if (finder_pattern[0]<64-3) {
-				return [version, 0]; // performance hack!
-			}
+			if (finder_pattern[0]<32) { return [version, 0]; }
 			finder_pattern[1] = matchFinderPattern(qr, 0,           n_modules-7, 7,	-1, module_size);
-			if (finder_pattern[0]+finder_pattern[1]<64+64-3) {
-				return [version, 0]; // performance hack!
-			}
+			if (finder_pattern[1]<32) { return [version, 0]; }
 			finder_pattern[2] = matchFinderPattern(qr, n_modules-7, 0,           -1,	7, module_size);
+			if (finder_pattern[2]<32) { return [version, 0]; }
 			if (qr.debug_findModuleSize) {
 				if (qr.logger) {
 					qr.logger.debug("matchVersion version=" + version +
@@ -1500,6 +1503,7 @@ QRCodeDecode.prototype = {
 		var version;
 		for (version = 1; version <= this.max_version; version++) {
 			var match = matchVersion(this, version);
+		        if (this.logger) { this.logger.debug("findModuleSize matchVersion version=" + match[0] + " grade=" + match[1]); }
 			if (match[1] > best_match_so_far[1]) { best_match_so_far = match; }
 			if (match[1] === 4) { break; }
 		}
