@@ -48,9 +48,27 @@ function on_logo_file_upload(evt) {
                 document.getElementById("blend_button").disabled = false;
                 document.getElementById("div_encoded").style.display = "none";
                 document.getElementById("div_debug").style.display = "none";
-        };
+                var bg_color = document.getElementById("qrlogo_bg_color");
+                var module_color = document.getElementById("qrlogo_module_color");
+                var ld = QRColor.canvas_light_dark(canvas);
+	        //console.log(ld);
+		var bg_hsl = QRColor.rgb2hsl(ld.light_rgb[0], ld.light_rgb[1] ,ld.light_rgb[2]);
+		var module_hsl = QRColor.rgb2hsl(ld.dark_rgb[0], ld.dark_rgb[1] ,ld.dark_rgb[2]);
+		bg_hsl[0] = bg_hsl[0]+0.5; if (bg_hsl[0]>1.0) { bg_hsl[0] -= 1.0; }
+		module_hsl[0] = module_hsl[0]+0.5; if (module_hsl[0]>1.0) { module_hsl[0] -= 1.0; }
+		if (bg_hsl[2] < 0.8) { bg_hsl[2] = 0.8; }
+		if (module_hsl[2] > 0.2) { module_hsl[2] = 0.2; }
+		//console.log(bg_hsl);
+		//console.log(module_hsl);
+		var bg_rgb = QRColor.hsl2rgb(bg_hsl[0], bg_hsl[1], bg_hsl[2]);
+		var module_rgb = QRColor.hsl2rgb(module_hsl[0], module_hsl[1], module_hsl[2]);
+                module_color.color.fromRGB(module_rgb[0]/255, module_rgb[1]/255, module_rgb[2]/255);
+                bg_color.color.fromRGB(bg_rgb[0]/255, bg_rgb[1]/255, bg_rgb[2]/255);
+	};
 
-        canvas_loader(evt, document.getElementById("qrlogo_input_canvas"), f);
+        var canvas = document.getElementById("qrlogo_input_canvas");
+        canvas_loader(evt, canvas, f);
+
 }
 
 
