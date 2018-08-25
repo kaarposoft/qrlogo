@@ -84,6 +84,32 @@ Logger.prototype = {
 
 
 /*  ************************************************************ */
+/** Load url into a canvas
+ *
+ *  @param url      The URL to load
+ *  @param canvas   The canvas to load into
+ *  @param func     Function to be called when load is complete
+ */
+
+function canvas_url_loader(url, canvas, func) {
+	var ctx = canvas.getContext('2d');
+
+	var img = new Image();
+	img.onload = function() {
+		canvas.width = img.width;
+		canvas.height = img.height;
+		ctx.drawImage(img,0,0);
+		func();
+	};
+        img.onerror = function(err) {
+		alert("Unable to load specified URL into canvas");
+        }
+	img.src = url;
+}
+
+
+
+/*  ************************************************************ */
 /** Load contents of a file into a canvas
  *
  *  @param evt      Event from a input type="file"
@@ -103,16 +129,32 @@ function canvas_loader(evt, canvas, func) {
 	var reader = new FileReader();
 
 	reader.onload = ( function(e) {
-		var img = new Image();
-		img.onload = function() {  
-			canvas.width = img.width;
-			canvas.height = img.height;
-			ctx.drawImage(img,0,0);
-			func();
-		};
-		img.src = e.target.result; 
+                canvas_url_loader(e.target.result, canvas, func);
 	});
 
 	// Read in the image file as a data URL.
 	reader.readAsDataURL(theFile);
 }
+
+/*  ************************************************************ */
+/*  Decode URL query parameters
+    https://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters#1099670
+*/
+
+function getQueryParams(qs) {
+    qs = qs.split('+').join(' ');
+
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
+//var query = getQueryParams(document.location.search);
+//alert(query.foo);
+

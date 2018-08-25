@@ -38,19 +38,29 @@
 function qrdecode_onload() {
 	document.getElementById("nojs").style.display = "none";
 	if (Modernizr.canvas) { document.getElementById("noHTML5canvas").style.display = "none"; }
+        var qparms = getQueryParams(document.location.search);
+        var url = qparms.url;
+        if (url) {
+		setTimeout(function () {
+			canvas_url_loader(url, document.getElementById("qrlogo_canvas"), on_logo_loaded);
+		}, 0);
+	}
 }
+
+
+/* ************************************************************ */
+function on_logo_loaded() {
+	document.getElementById("ondecode_button").disabled = false;
+	document.getElementById("div_decoded").style.display = "none";
+	document.getElementById("div_debug").style.display = "none";
+}
+
 
 
 /* ************************************************************ */
 function on_logo_file_upload(evt) {
 
-	var f = function () {
-		document.getElementById("ondecode_button").disabled = false;
-		document.getElementById("div_decoded").style.display = "none";
-		document.getElementById("div_debug").style.display = "none";
-	};
-
-	canvas_loader(evt, document.getElementById("qrlogo_canvas"), f);
+	canvas_loader(evt, document.getElementById("qrlogo_canvas"), on_logo_loaded);
 }
 
 
