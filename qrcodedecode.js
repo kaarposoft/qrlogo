@@ -1016,8 +1016,9 @@ QRCodeDecode.prototype = {
 	findImageBorders: function () {
 		var i, j, n;
 		var limit;
-		var dark_parts = 0.3;
+		var dark_parts = 0.2;
 		var skew_limit = this.image.height/64;
+		if (skew_limit < 2) { skew_limit = 2; }
 
                 limit = this.image.height * dark_parts;
 		for (i = 0; i < this.image.width; i++) {
