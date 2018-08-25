@@ -19,12 +19,22 @@
 
 /* ************************************************************ */
 /* Settings for http://www.jslint.com/
+** Note that we do NOT adhere to all jslint proposals
 */
 
-/*jslint browser: true */
-/*jslint vars: true */
-/*global alert: true */
-/*global QRCodeDecode: true, Modernizr: true, Logger: true */
+/*jslint
+        white,
+        single,
+        this,
+        for,
+        long,
+        browser,
+*/
+/*global
+        QRCodeDecode,
+        Logger,
+        Modernizr,
+*/
 
 
 /* ************************************************************ */

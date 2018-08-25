@@ -20,16 +20,24 @@
 
 /* ************************************************************ */
 /* Settings for http://www.jslint.com/
+** Note that we do NOT adhere to all jslint proposals
 */
 
-/*jslint browser: true */
-/*jslint bitwise: true */
-/*jslint vars: true */
-/*jslint white: true */
-/*jslint plusplus: true */
-/*jslint continue: true */
-/*global alert: true */
-/*global ReedSolomon: true */
+/*jslint
+        white,
+        single,
+        this,
+        for,
+        long,
+        browser,
+*/
+/*global
+        alert,
+        ReedSolomon,
+        Logger,
+        canvas_loader,
+        Modernizr,
+*/
 
 
 /* ************************************************************ */
