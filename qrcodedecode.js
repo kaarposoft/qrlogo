@@ -24,19 +24,19 @@
 */
 
 /*jslint
-        white,
-        single,
-        this,
-        for,
-        long,
-        browser,
+	white,
+	single,
+	this,
+	for,
+	long,
+	browser,
 */
 /*global
-        alert,
-        ReedSolomon,
-        Logger,
-        canvas_loader,
-        Modernizr,
+	alert,
+	ReedSolomon,
+	Logger,
+	canvas_loader,
+	Modernizr,
 */
 
 
@@ -1028,7 +1028,7 @@ QRCodeDecode.prototype = {
 		var skew_limit = this.image.height/64;
 		if (skew_limit < 2) { skew_limit = 2; }
 
-                limit = this.image.height * dark_parts;
+		limit = this.image.height * dark_parts;
 		for (i = 0; i < this.image.width; i++) {
 			n = 0;
 			for (j = 0; j < this.image.height; j++) {
@@ -1038,7 +1038,7 @@ QRCodeDecode.prototype = {
 		}
 		this.image_left = i;
 
-                limit = this.image.height * dark_parts;
+		limit = this.image.height * dark_parts;
 		for (i = this.image.width-1; i >= 0; i--) {
 			n = 0;
 			for (j = 0; j < this.image.height; j++) {
@@ -1048,7 +1048,7 @@ QRCodeDecode.prototype = {
 		}
 		this.image_right = i;
 
-                limit = this.image.width * dark_parts;
+		limit = this.image.width * dark_parts;
 		for (j = 0; j < this.image.height; j++) {
 			n = 0;
 			for (i = 0; i < this.image.width; i++) {
@@ -1058,7 +1058,7 @@ QRCodeDecode.prototype = {
 		}
 		this.image_top = j;
 
-                limit = this.image.width * dark_parts;
+		limit = this.image.width * dark_parts;
 		for (j = this.image.height-1; j>=0; j--) {
 			n = 0;
 			for (i = 0; i < this.image.width; i++) {
@@ -1311,12 +1311,12 @@ QRCodeDecode.prototype = {
 
 		/* ************************************************************ */
 		function grade_finder_patterns(finder_pattern) {
-                        var p = finder_pattern[0]+finder_pattern[1]+finder_pattern[2];
-                        if (p >= 64+64+64) { return 4; }
-                        if (p >= 62+62+62) { return 3; }
-                        if (p >= 58+58+58) { return 2; }
-                        if (p >= 42+42+42) { return 1; }
-                        return 0;
+			var p = finder_pattern[0]+finder_pattern[1]+finder_pattern[2];
+			if (p >= 64+64+64) { return 4; }
+			if (p >= 62+62+62) { return 3; }
+			if (p >= 58+58+58) { return 2; }
+			if (p >= 42+42+42) { return 1; }
+			return 0;
 		}
 
 		/* ************************************************************ */
@@ -1512,7 +1512,7 @@ QRCodeDecode.prototype = {
 		var version;
 		for (version = 1; version <= this.max_version; version++) {
 			var match = matchVersion(this, version);
-		        if (this.logger) { this.logger.debug("findModuleSize matchVersion version=" + match[0] + " grade=" + match[1]); }
+			if (this.logger) { this.logger.debug("findModuleSize matchVersion version=" + match[0] + " grade=" + match[1]); }
 			if (match[1] > best_match_so_far[1]) { best_match_so_far = match; }
 			if (match[1] === 4) { break; }
 		}

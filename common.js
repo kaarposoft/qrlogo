@@ -7,7 +7,7 @@
        you may not use this file except in compliance with the License.
        You may obtain a copy of the License at
 
-         http://www.apache.org/licenses/LICENSE-2.0
+	 http://www.apache.org/licenses/LICENSE-2.0
 
        Unless required by applicable law or agreed to in writing, software
        distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,19 +22,19 @@
 */
 
 /*jslint
-        white,
-        single,
-        this,
-        for,
-        long,
-        browser,
+	white,
+	single,
+	this,
+	for,
+	long,
+	browser,
 */
 /*global
-        alert,
-        QRCodeDecode,
-        Logger,
-        canvas_loader,
-        Modernizr,
+	alert,
+	QRCodeDecode,
+	Logger,
+	canvas_loader,
+	Modernizr,
 */
 
 /* ************************************************************ */
@@ -114,9 +114,9 @@ function canvas_url_loader(url, canvas, func) {
 		ctx.drawImage(img,0,0);
 		func();
 	};
-        img.onerror = function(err) {
+	img.onerror = function(err) {
 		alert("Unable to load specified URL into canvas");
-        }
+	}
 	img.src = url;
 }
 
@@ -142,7 +142,7 @@ function canvas_loader(evt, canvas, func) {
 	var reader = new FileReader();
 
 	reader.onload = ( function(e) {
-                canvas_url_loader(e.target.result, canvas, func);
+		canvas_url_loader(e.target.result, canvas, func);
 	});
 
 	// Read in the image file as a data URL.
@@ -158,11 +158,11 @@ function getQueryParams(qs) {
     qs = qs.split('+').join(' ');
 
     var params = {},
-        tokens,
-        re = /[?&]?([^=]+)=([^&]*)/g;
+	tokens,
+	re = /[?&]?([^=]+)=([^&]*)/g;
 
     while (tokens = re.exec(qs)) {
-        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+	params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
     }
 
     return params;

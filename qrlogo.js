@@ -23,19 +23,19 @@
 */
 
 /*jslint
-        white,
-        single,
-        this,
-        for,
-        long,
-        browser,
+	white,
+	single,
+	this,
+	for,
+	long,
+	browser,
 */
 /*global
-        alert,
-        QRCodeDecode,
-        Logger,
-        canvas_loader,
-        Modernizr,
+	alert,
+	QRCodeDecode,
+	Logger,
+	canvas_loader,
+	Modernizr,
 */
 
 
@@ -333,9 +333,9 @@ QRLogo.prototype = {
 		var pixpermodule_min = Math.max(1, Math.ceil(logo_max/(n_modules)));
 
 		// Smallest logo; aka largest pixpermodule for QR
-        	var pixpermodule_max = Math.max(1, Math.ceil(2.2*logo_max/(n_modules)));
+		var pixpermodule_max = Math.max(1, Math.ceil(2.2*logo_max/(n_modules)));
 
-        	var n_pixpermodule = (pixpermodule_max-pixpermodule_min);
+		var n_pixpermodule = (pixpermodule_max-pixpermodule_min);
 
 		this.logo_n = 0;
 

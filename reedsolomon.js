@@ -33,15 +33,15 @@ Original version Copyright (C) by Henry Minsky
 */
 
 /*jslint
-        white,
-        single,
-        this,
-        for,
-        long,
-        browser,
+	white,
+	single,
+	this,
+	for,
+	long,
+	browser,
 */
 /*global
-        alert,
+	alert,
 */
 
 

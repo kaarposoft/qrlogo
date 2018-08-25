@@ -7,7 +7,7 @@
        you may not use this file except in compliance with the License.
        You may obtain a copy of the License at
 
-         http://www.apache.org/licenses/LICENSE-2.0
+	 http://www.apache.org/licenses/LICENSE-2.0
 
        Unless required by applicable law or agreed to in writing, software
        distributed under the License is distributed on an "AS IS" BASIS,
@@ -44,14 +44,14 @@ function qrblend_onload() {
 /* ************************************************************ */
 function on_logo_file_upload(evt) {
 
-        var f = function () {
-                document.getElementById("blend_button").disabled = false;
-                document.getElementById("div_encoded").style.display = "none";
-                document.getElementById("div_debug").style.display = "none";
-                var bg_color = document.getElementById("qrlogo_bg_color");
-                var module_color = document.getElementById("qrlogo_module_color");
-                var ld = QRColor.canvas_light_dark(canvas);
-	        //console.log(ld);
+	var f = function () {
+		document.getElementById("blend_button").disabled = false;
+		document.getElementById("div_encoded").style.display = "none";
+		document.getElementById("div_debug").style.display = "none";
+		var bg_color = document.getElementById("qrlogo_bg_color");
+		var module_color = document.getElementById("qrlogo_module_color");
+		var ld = QRColor.canvas_light_dark(canvas);
+		//console.log(ld);
 		var bg_hsl = QRColor.rgb2hsl(ld.light_rgb[0], ld.light_rgb[1] ,ld.light_rgb[2]);
 		var module_hsl = QRColor.rgb2hsl(ld.dark_rgb[0], ld.dark_rgb[1] ,ld.dark_rgb[2]);
 		bg_hsl[0] = bg_hsl[0]+0.5; if (bg_hsl[0]>1.0) { bg_hsl[0] -= 1.0; }
@@ -62,12 +62,12 @@ function on_logo_file_upload(evt) {
 		//console.log(module_hsl);
 		var bg_rgb = QRColor.hsl2rgb(bg_hsl[0], bg_hsl[1], bg_hsl[2]);
 		var module_rgb = QRColor.hsl2rgb(module_hsl[0], module_hsl[1], module_hsl[2]);
-                module_color.color.fromRGB(module_rgb[0]/255, module_rgb[1]/255, module_rgb[2]/255);
-                bg_color.color.fromRGB(bg_rgb[0]/255, bg_rgb[1]/255, bg_rgb[2]/255);
+		module_color.color.fromRGB(module_rgb[0]/255, module_rgb[1]/255, module_rgb[2]/255);
+		bg_color.color.fromRGB(bg_rgb[0]/255, bg_rgb[1]/255, bg_rgb[2]/255);
 	};
 
-        var canvas = document.getElementById("qrlogo_input_canvas");
-        canvas_loader(evt, canvas, f);
+	var canvas = document.getElementById("qrlogo_input_canvas");
+	canvas_loader(evt, canvas, f);
 
 }
 
@@ -109,9 +109,9 @@ function qrblend_onblend() {
 	var bg_color = document.getElementById("qrlogo_bg_color").color.rgb;
 	var module_color = document.getElementById("qrlogo_module_color").color.rgb;
 
-        var shade_factor = parseFloat(document.getElementById("qrlogo_shadefactor").value);
+	var shade_factor = parseFloat(document.getElementById("qrlogo_shadefactor").value);
 //alert("SF " + document.getElementById("qrlogo_shadefactor").value + " -> " + shade_factor);
-        var tint_factor = parseFloat(document.getElementById("qrlogo_tintfactor").value);
+	var tint_factor = parseFloat(document.getElementById("qrlogo_tintfactor").value);
 
 	var mode = parseInt(document.getElementById("qrlogo_mode").value, 10);
 	var error_correction_level = parseInt(document.getElementById("qrlogo_errorcorrection").value, 10);
@@ -132,69 +132,69 @@ function qrblend_onblend() {
 
 	qr.encodeToCanvas(mode, text, version, error_correction_level, pixpermodule, canvas, bg_color, module_color);
 
-        var canvas_arr = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height).data;
+	var canvas_arr = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height).data;
 
 	var input = document.getElementById("qrlogo_input_canvas");
-        var input_arr = input.getContext("2d").getImageData(0, 0, input.width, input.height).data;
+	var input_arr = input.getContext("2d").getImageData(0, 0, input.width, input.height).data;
 
-        var dx = Math.round((canvas.width-input.width)/2);
-        if (dx<0) { dx = 0 };
-        var dy = Math.round((canvas.height-input.height)/2);
-        if (dy<0) { dy = 0 };
-        var nx = canvas.width - dx;
-        if (nx>input.width) { nx=input.width; }
-        var ny = canvas.height - dy;
-        if (ny>input.height) { ny=input.height; }
-        var mx = canvas.width;
-        var my = canvas.height;
+	var dx = Math.round((canvas.width-input.width)/2);
+	if (dx<0) { dx = 0 };
+	var dy = Math.round((canvas.height-input.height)/2);
+	if (dy<0) { dy = 0 };
+	var nx = canvas.width - dx;
+	if (nx>input.width) { nx=input.width; }
+	var ny = canvas.height - dy;
+	if (ny>input.height) { ny=input.height; }
+	var mx = canvas.width;
+	var my = canvas.height;
 
-        var overlay_arr = new Uint8ClampedArray(mx*my*4);
-        for (var x=0; x<nx; x++)
-            for (var y=0; y<ny; y++) {
+	var overlay_arr = new Uint8ClampedArray(mx*my*4);
+	for (var x=0; x<nx; x++)
+	    for (var y=0; y<ny; y++) {
 
-                var canvas_idx = 4*(dx+x+mx*(dy+y));
-                var r0 = canvas_arr[canvas_idx+0];
-                var g0 = canvas_arr[canvas_idx+1];
-                var b0 = canvas_arr[canvas_idx+2];
-                var a0 = canvas_arr[canvas_idx+3];
-                var v0 = 0.30 * r0 + 0.59 * g0 + 0.11 * b0;
+		var canvas_idx = 4*(dx+x+mx*(dy+y));
+		var r0 = canvas_arr[canvas_idx+0];
+		var g0 = canvas_arr[canvas_idx+1];
+		var b0 = canvas_arr[canvas_idx+2];
+		var a0 = canvas_arr[canvas_idx+3];
+		var v0 = 0.30 * r0 + 0.59 * g0 + 0.11 * b0;
 
-                var input_idx = 4*(x+input.width*y);
-                var r = input_arr[input_idx+0];
-                var g = input_arr[input_idx+1];
-                var b = input_arr[input_idx+2];
-                var a = input_arr[input_idx+3];
-                //var a = 100;
-                //if (v0 > 127) { a = a/3; }
-                if (v0 > 127) { 
-                    // QR background
-                    r = r + (255-r)*tint_factor;
-                    g = g + (255-g)*tint_factor;
-                    b = b + (255-b)*tint_factor;
-                } else  {
-                    // QR marker
-                    r = r * (1-shade_factor);
-                    g = g * (1-shade_factor);
-                    b = b * (1-shade_factor);
-                }
+		var input_idx = 4*(x+input.width*y);
+		var r = input_arr[input_idx+0];
+		var g = input_arr[input_idx+1];
+		var b = input_arr[input_idx+2];
+		var a = input_arr[input_idx+3];
+		//var a = 100;
+		//if (v0 > 127) { a = a/3; }
+		if (v0 > 127) { 
+		    // QR background
+		    r = r + (255-r)*tint_factor;
+		    g = g + (255-g)*tint_factor;
+		    b = b + (255-b)*tint_factor;
+		} else  {
+		    // QR marker
+		    r = r * (1-shade_factor);
+		    g = g * (1-shade_factor);
+		    b = b * (1-shade_factor);
+		}
 
-                overlay_arr[canvas_idx+0] = r;
-                overlay_arr[canvas_idx+1] = g;
-                overlay_arr[canvas_idx+2] = b;
-                overlay_arr[canvas_idx+3] = a;
-            }
-        var overlay_img_data = new ImageData(overlay_arr, mx, my);
+		overlay_arr[canvas_idx+0] = r;
+		overlay_arr[canvas_idx+1] = g;
+		overlay_arr[canvas_idx+2] = b;
+		overlay_arr[canvas_idx+3] = a;
+	    }
+	var overlay_img_data = new ImageData(overlay_arr, mx, my);
 
-        var overlay = document.createElement('canvas');
-        overlay.width = mx;
-        overlay.height = my;
+	var overlay = document.createElement('canvas');
+	overlay.width = mx;
+	overlay.height = my;
 
-        var overlay_ctx = overlay.getContext("2d");
-        overlay_ctx.putImageData(overlay_img_data, 0, 0);
+	var overlay_ctx = overlay.getContext("2d");
+	overlay_ctx.putImageData(overlay_img_data, 0, 0);
 
-        var pattern = ctx.createPattern(overlay, "no-repeat");
-        ctx.fillStyle = pattern;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+	var pattern = ctx.createPattern(overlay, "no-repeat");
+	ctx.fillStyle = pattern;
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 	document.getElementById("qrlogo_version").innerHTML = version.toString();
 	document.getElementById("div_encoded").style.display = "block";

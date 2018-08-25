@@ -7,7 +7,7 @@
        you may not use this file except in compliance with the License.
        You may obtain a copy of the License at
 
-         http://www.apache.org/licenses/LICENSE-2.0
+	 http://www.apache.org/licenses/LICENSE-2.0
 
        Unless required by applicable law or agreed to in writing, software
        distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,21 +34,21 @@ var QRColor = {
 		var img = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
 		var light_brightness = 0;
-                var dark_brightness = 255;
-                var light_pos = -1;
-                var dark_pos = -1;
+		var dark_brightness = 255;
+		var light_pos = -1;
+		var dark_pos = -1;
 
 		var p;
 		for (p = 0; p < img.length; p += 4) {
-                        if (img[p+3] > 127) {
+			if (img[p+3] > 127) {
 				var gray = img[0] + img[p+1] + img[p+2];
 				if ( gray>6 && gray<3*255-6) {
-                                	var b = 0.30 * img[p] + 0.59 * img[p+1] + 0.11 * img[p+2];
-                                	if (b < dark_brightness) { dark_brightness = b; dark_pos = p; }
-                                	if (b > light_brightness) { light_brightness = b; light_pos = p; }
+					var b = 0.30 * img[p] + 0.59 * img[p+1] + 0.11 * img[p+2];
+					if (b < dark_brightness) { dark_brightness = b; dark_pos = p; }
+					if (b > light_brightness) { light_brightness = b; light_pos = p; }
 				}
-                        }
-                }
+			}
+		}
 
 		var light_rgb = [ 255, 255, 255 ];
 		if (light_pos >= 0 ) {

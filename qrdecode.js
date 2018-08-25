@@ -7,7 +7,7 @@
        you may not use this file except in compliance with the License.
        You may obtain a copy of the License at
 
-         http://www.apache.org/licenses/LICENSE-2.0
+	 http://www.apache.org/licenses/LICENSE-2.0
 
        Unless required by applicable law or agreed to in writing, software
        distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,19 +23,19 @@
 */
 
 /*jslint
-        white,
-        single,
-        this,
-        for,
-        long,
-        browser,
+	white,
+	single,
+	this,
+	for,
+	long,
+	browser,
 */
 /*global
-        alert,
-        QRCodeDecode,
-        Logger,
-        canvas_loader,
-        Modernizr,
+	alert,
+	QRCodeDecode,
+	Logger,
+	canvas_loader,
+	Modernizr,
 */
 
 
@@ -50,9 +50,9 @@
 function qrdecode_onload() {
 	document.getElementById("nojs").style.display = "none";
 	if (Modernizr.canvas) { document.getElementById("noHTML5canvas").style.display = "none"; }
-        var qparms = getQueryParams(document.location.search);
-        var url = qparms.url;
-        if (url) {
+	var qparms = getQueryParams(document.location.search);
+	var url = qparms.url;
+	if (url) {
 		setTimeout(function () {
 			canvas_url_loader(url, document.getElementById("qrlogo_canvas"), on_logo_loaded);
 		}, 0);
