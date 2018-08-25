@@ -615,17 +615,44 @@ http://www.champignon.net/TimKindberg/";
 
 	function inlinePixarrayTestGroup() {
 		var tg = new TestGroup("Inline pixarray encode+decode");
-		var tbase = "Test%*:";
-		var nbase = "2030507011013017";
+		var tbase = "\
+Lorem ipsum dolor sit amet/ consectetur adipiscing elit.\
+Vestibulum sit amet odio aliquet/ mollis erat et/ lobortis nibh.\
+Nullam in orci et libero luctus posuere.\
+Fusce dignissim hendrerit odio/ ut interdum lacus condimentum at.\
+Quisque tempor ultricies sapien/ consectetur scelerisque velit.\
+Class aptent taciti sociosqu ad litora torquent per conubia nostra/ per inceptos himenaeos.\
+Mauris a tellus diam. Donec nec nisl nisl.\
+Integer non lacus posuere/ aliquet diam ultrices/ tristique sem.\
+Nulla scelerisque libero nec ligula malesuada/ sit amet pellentesque orci pellentesque.\
+Maecenas eget lorem consectetur nulla sagittis tempor.\
+Proin mattis sapien mauris/ vel sollicitudin enim mattis ac.\
+Cras eleifend lorem et finibus hendrerit.\
+Donec in magna dui.\
+Cras luctus vitae velit vel gravida.\
+Vestibulum convallis eros nec turpis malesuada lacinia.\
+In a justo ullamcorper/ pulvinar dolor molestie/ aliquam ante.\
+Maecenas lacinia viverra sapien id molestie.\
+Vivamus et tempor massa/ eget pulvinar dui.\
+Donec egestas sapien sit amet elit consectetur/ ut mattis purus elementum.\
+Proin aliquet sollicitudin tempor.\
+Nullam finibus est nec tortor ullamcorper tincidunt.\
+Integer commodo ac ex vitae convallis.\
+Fusce malesuada a orci ac efficitur.\
+Nam interdum suscipit urna sit amet pellentesque volutpat.\
+";
 		var errorcorrection;
 		for (errorcorrection = 0; errorcorrection <= 3; errorcorrection++) {
-			var text = tbase;
-            var version;
+		        //var nbase = "2030507011013017";
+		        var nbase = "235711131719";
+                        var n = nbase;
+                        var version;
 			for (version = 1; version <= 40; version++ ) {
+				var text = tbase.slice(version, version*version*3.0/4.0+5+2*version);
 				tg.appendTest(new InlinePixarrayTest("8bit len="+text.length+" version="+version+" ec="+errorcorrection, text, 4, version, errorcorrection));
 				tg.appendTest(new InlinePixarrayTest("anum len="+text.length+" version="+version+" ec="+errorcorrection, text, 2, version, errorcorrection));
-				tg.appendTest(new InlinePixarrayTest("num len="+nbase.length+" version="+version+" ec="+errorcorrection, nbase, 1, version, errorcorrection));
-				text += tbase;
+				tg.appendTest(new InlinePixarrayTest("num len="+n.length+" version="+version+" ec="+errorcorrection, n, 1, version, errorcorrection));
+                                n += nbase + version + version + version + version;
 			}
 		}
 		return tg;
