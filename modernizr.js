@@ -1,18 +1,4 @@
-/* Modernizr 2.0.6 (Custom Build) | MIT & BSD
- * Build: http://www.modernizr.com/download/#-canvas-addtest
- */
-;window.Modernizr=function(a,b,c){function w(a,b){return!!~(""+a).indexOf(b)}function v(a,b){return typeof a===b}function u(a,b){return t(prefixes.join(a+";")+(b||""))}function t(a){j.cssText=a}var d="2.0.6",e={},f=b.documentElement,g=b.head||b.getElementsByTagName("head")[0],h="modernizr",i=b.createElement(h),j=i.style,k,l=Object.prototype.toString,m={},n={},o={},p=[],q,r={}.hasOwnProperty,s;!v(r,c)&&!v(r.call,c)?s=function(a,b){return r.call(a,b)}:s=function(a,b){return b in a&&v(a.constructor.prototype[b],c)},m.canvas=function(){var a=b.createElement("canvas");return!!a.getContext&&!!a.getContext("2d")};for(var x in m)s(m,x)&&(q=x.toLowerCase(),e[q]=m[x](),p.push((e[q]?"":"no-")+q));e.addTest=function(a,b){if(typeof a=="object")for(var d in a)s(a,d)&&e.addTest(d,a[d]);else{a=a.toLowerCase();if(e[a]!==c)return;b=typeof b=="boolean"?b:!!b(),f.className+=" "+(b?"":"no-")+a,e[a]=b}return e},t(""),i=k=null,e._version=d;return e}(this,this.document);
-
-/**
-* file tests for the File API specification
-* Tests for objects specific to the File API W3C specification without
-* being redundant (don't bother testing for Blob since it is assumed
-* to be the File object's prototype.
-*
-* Will fail in Safari 5 due to its lack of support for the standards
-* defined FileReader object
-*/
-Modernizr.addTest('file', function () {
-    return !!(window.File && window.FileList && window.FileReader);
-});
+/*! modernizr 3.6.0 (Custom Build) | MIT *
+ * https://modernizr.com/download/?-canvas-filereader !*/
+!function(e,n,t){function o(e,n){return typeof e===n}function a(){var e,n,t,a,s,r,f;for(var u in i)if(i.hasOwnProperty(u)){if(e=[],n=i[u],n.name&&(e.push(n.name.toLowerCase()),n.options&&n.options.aliases&&n.options.aliases.length))for(t=0;t<n.options.aliases.length;t++)e.push(n.options.aliases[t].toLowerCase());for(a=o(n.fn,"function")?n.fn():n.fn,s=0;s<e.length;s++)r=e[s],f=r.split("."),1===f.length?Modernizr[f[0]]=a:(!Modernizr[f[0]]||Modernizr[f[0]]instanceof Boolean||(Modernizr[f[0]]=new Boolean(Modernizr[f[0]])),Modernizr[f[0]][f[1]]=a),l.push((a?"":"no-")+f.join("-"))}}function s(){return"function"!=typeof n.createElement?n.createElement(arguments[0]):u?n.createElementNS.call(n,"http://www.w3.org/2000/svg",arguments[0]):n.createElement.apply(n,arguments)}var i=[],r={_version:"3.6.0",_config:{classPrefix:"",enableClasses:!0,enableJSClass:!0,usePrefixes:!0},_q:[],on:function(e,n){var t=this;setTimeout(function(){n(t[e])},0)},addTest:function(e,n,t){i.push({name:e,fn:n,options:t})},addAsyncTest:function(e){i.push({name:null,fn:e})}},Modernizr=function(){};Modernizr.prototype=r,Modernizr=new Modernizr,Modernizr.addTest("filereader",!!(e.File&&e.FileList&&e.FileReader));var l=[],f=n.documentElement,u="svg"===f.nodeName.toLowerCase();Modernizr.addTest("canvas",function(){var e=s("canvas");return!(!e.getContext||!e.getContext("2d"))}),a(),delete r.addTest,delete r.addAsyncTest;for(var c=0;c<Modernizr._q.length;c++)Modernizr._q[c]();e.Modernizr=Modernizr}(window,document);
 

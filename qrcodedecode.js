@@ -36,7 +36,6 @@
 	ReedSolomon,
 	Logger,
 	canvas_loader,
-	Modernizr,
 */
 
 

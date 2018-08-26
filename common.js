@@ -34,7 +34,6 @@
 	QRCodeDecode,
 	Logger,
 	canvas_loader,
-	Modernizr,
 */
 
 /* ************************************************************ */
