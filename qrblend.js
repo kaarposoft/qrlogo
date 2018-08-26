@@ -75,9 +75,11 @@ function on_logo_file_upload(evt) {
 /* ************************************************************ */
 function qrblend_verify() {
 
-	var mode = parseInt(document.getElementById("qrlogo_mode").value, 10);
-	var text = document.getElementById("qrlogo_text").value;
-	if (mode === 2) { text = text.toUpperCase(); }
+        var mode = parseInt(document.getElementById("qrlogo_mode").value, 10);
+        var text = document.getElementById("qrlogo_text").value;
+        var crlf = document.getElementById("qrlogo_crlf");
+        crlf = crlf.options[crlf.selectedIndex].value;
+        text = text_crlf_mode(text, crlf, mode);
 
 	var qr = new QRCodeDecode();
 
@@ -113,10 +115,12 @@ function qrblend_onblend() {
 //alert("SF " + document.getElementById("qrlogo_shadefactor").value + " -> " + shade_factor);
 	var tint_factor = parseFloat(document.getElementById("qrlogo_tintfactor").value);
 
-	var mode = parseInt(document.getElementById("qrlogo_mode").value, 10);
-	var error_correction_level = parseInt(document.getElementById("qrlogo_errorcorrection").value, 10);
-	var text = document.getElementById("qrlogo_text").value;
-	if (mode === 2) { text = text.toUpperCase(); }
+        var mode = parseInt(document.getElementById("qrlogo_mode").value, 10);
+        var error_correction_level = parseInt(document.getElementById("qrlogo_errorcorrection").value, 10);
+        var text = document.getElementById("qrlogo_text").value;
+        var crlf = document.getElementById("qrlogo_crlf");
+        crlf = crlf.options[crlf.selectedIndex].value;
+        text = text_crlf_mode(text, crlf, mode);
 	var pixpermodule = parseInt(document.getElementById("qrlogo_pixpermodule").value, 10);
 
 	var version = qr.getVersionFromLength(error_correction_level, mode, text.length);

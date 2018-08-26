@@ -82,7 +82,14 @@
                 <td rowspan="2"><canvas width="10" height="10" id="qrlogo_input_canvas"></canvas></td>
             </tr><tr>
                 <td>Text:<br>
-                    <textarea id="qrlogo_text" rows="10" cols="40">http://qrlogo.kaarposoft.dk</textarea></td>
+                    <textarea id="qrlogo_text" rows="10" cols="40">http://qrlogo.kaarposoft.dk</textarea><br>
+                    <select id="qrlogo_crlf">
+                        <option value="raw">No line-separator translation</option>
+                        <option value="lf">Use LF (line feed) as line-separator</option>
+                        <option value="crlf">Use CRLF (carriage return plus line feed) as line-separator</option>
+                        <option value="cr">Use CR (carriage return) as line-separator</option>
+                    </select>
+                </td>
             </tr><tr>
 
                 <td>Background color:<br>

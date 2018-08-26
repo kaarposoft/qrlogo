@@ -196,7 +196,8 @@ QRLogo.prototype = {
 	/* ************************************************************ */
 	init: function () {
 		this.logo_canvas = document.getElementById('qrlogo_canvas');
-		this.text = document.getElementById('qrlogo_text');
+		this.text = document.getElementById("qrlogo_text");
+		this.crlf = document.getElementById("qrlogo_crlf");
 		this.debug_checkbox = document.getElementById('qrlogo_debug_checkbox');
 		this.bg_color = document.getElementById('qrlogo_bg_color');
 		this.module_color = document.getElementById('qrlogo_module_color');
@@ -220,6 +221,7 @@ QRLogo.prototype = {
 		this.debug_detailed = false;
 		this.start_button.disabled = true;
 		this.stop_button.disabled = true;
+
 	},
 
 	/* ************************************************************ */
@@ -309,8 +311,12 @@ QRLogo.prototype = {
 			this.logger.init();
 			qr.logger = this.logger;
 		}
+		var text = this.text.value;
+	        var crlf = this.crlf.options[this.crlf.selectedIndex].value;
+	        text = text_crlf_mode(text, crlf, 4);
+		this.txt = text;
 
-		this.version = qr.getVersionFromLength(error_correction_level, mode, this.text.value.length);
+		this.version = qr.getVersionFromLength(error_correction_level, mode, text.length);
 		if (this.version > 37) { this.max_version = 40; } else { this.max_version = this.version+2; }
 		var n_modules = qr.nModulesFromVersion(this.version);
 
@@ -337,7 +343,7 @@ QRLogo.prototype = {
 
 			var canvas = document.createElement('canvas');
 			canvas.qrlogo_pixpermodule = ppm;
-			qr.encodeToCanvas(mode, this.text.value, this.version, error_correction_level, ppm, canvas, this.bg_color.jscolor.rgb, this.module_color.jscolor.rgb);
+			qr.encodeToCanvas(mode, text, this.version, error_correction_level, ppm, canvas, this.bg_color.jscolor.rgb, this.module_color.jscolor.rgb);
 			this.qr_ppm_array.push(ppm);
 			this.qr_canvas_array.push(canvas);
 
@@ -497,7 +503,7 @@ QRLogo.prototype = {
 			ppm = source_canvas.qrlogo_pixpermodule;
 			var decoded = qr.decodeImageDataInsideBordersWithMaxVersion(imagedata, dest_canvas.width, dest_canvas.height,
 				4*ppm, source_canvas.width-4*ppm-1, 4*ppm, source_canvas.height-4*ppm-1, this.max_version);
-			ok = (decoded === this.text.value);
+			ok = (decoded === this.txt);
 			if (!ok) { result = "Wrong text decode"; }
 		} catch (err) {
 			result = err.toString();

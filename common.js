@@ -61,6 +61,16 @@ function htmlEscape(text) {
 	}
 
 
+function text_crlf_mode(text, crlf, mode) {
+	var regex = /(\r\n|\n|\r)/gm;
+	if (mode === 2) { text = text.toUpperCase(); }
+	if (crlf == "lf") { return text.replace(regex, "\n"); }
+	if (crlf == "crlf") { return text.replace(regex, "\r\n"); }
+	if (crlf == "cr") { return text.replace(regex, "\r"); }
+	return text;
+}
+
+
 /*  ************************************************************ */
 /** Create a logger
  *
