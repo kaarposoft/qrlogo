@@ -27,7 +27,7 @@
 	<script type="text/javascript" src="reedsolomon.js"></script>
 	<script type="text/javascript" src="qrcodedecode.js"></script>
 	<script type="text/javascript" src="qrencode.js"></script>
-	<script type="text/javascript" src="jscolor/jscolor.js"></script>
+	<script type="text/javascript" src="jscolor.js"></script>
 
 	<link rel="StyleSheet" type="text/css" href="default.css">
 	<link rel="shortcut icon" href="favicon.ico" />
@@ -80,11 +80,11 @@
                     <textarea id="qrlogo_text" rows="10" cols="40">http://qrlogo.kaarposoft.dk</textarea></td>
             </tr><tr>
                 <td>Background color:<br>
-                    <input id="qrlogo_bg_color" class="color {pickerMode:'HSV'}" value="F9F9FF"></td>
+                    <input id="qrlogo_bg_color" class="jscolor {pickerMode:'HSV'}" value="F9F9FF"></td>
                 <td><input id="qrlogo_debug_checkbox" type="checkbox">Produce debug output</td>
             </tr><tr>
                 <td>Module color:<br>
-                    <input id="qrlogo_module_color" class="color {pickerMode:'HVS'}" value="4C0C0C">
+                    <input id="qrlogo_module_color" class="jscolor {pickerMode:'HVS'}" value="4C0C0C">
                 </td>
                 <td><label>Error Correction:
                     <select id="qrlogo_errorcorrection">

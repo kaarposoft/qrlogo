@@ -295,13 +295,13 @@ QRLogo.prototype = {
 
 		if (max_col-min_col < 10) { // not much contrast
 			if ((max_col + min_col) / 2 < 128) {
-				this.module_color.color.fromRGB(image_data.data[min_pos]/255,image_data.data[min_pos+1]/255,image_data.data[min_pos+2]/255);
+				this.module_color.jscolor.fromRGB(image_data.data[min_pos], image_data.data[min_pos+1], image_data.data[min_pos+2]);
 			} else {
-				this.bg_color.color.fromRGB(image_data.data[max_pos]/255,image_data.data[max_pos+1]/255,image_data.data[max_pos+2]/255);
+				this.bg_color.jscolor.fromRGB(image_data.data[max_pos], image_data.data[max_pos+1], image_data.data[max_pos+2]);
 			}
 		} else {
-			this.module_color.color.fromRGB(image_data.data[min_pos]/255,image_data.data[min_pos+1]/255,image_data.data[min_pos+2]/255);
-			this.bg_color.color.fromRGB(image_data.data[max_pos]/255,image_data.data[max_pos+1]/255,image_data.data[max_pos+2]/255);
+			this.module_color.jscolor.fromRGB(image_data.data[min_pos], image_data.data[min_pos+1], image_data.data[min_pos+2]);
+			this.bg_color.jscolor.fromRGB(image_data.data[max_pos], image_data.data[max_pos+1], image_data.data[max_pos+2]);
 		}		
 
 	},
@@ -352,7 +352,7 @@ QRLogo.prototype = {
 
 			var canvas = document.createElement('canvas');
 			canvas.qrlogo_pixpermodule = ppm;
-			qr.encodeToCanvas(mode, this.text.value, this.version, error_correction_level, ppm, canvas, this.bg_color.color.rgb, this.module_color.color.rgb);
+			qr.encodeToCanvas(mode, this.text.value, this.version, error_correction_level, ppm, canvas, this.bg_color.jscolor.rgb, this.module_color.jscolor.rgb);
 			this.qr_ppm_array.push(ppm);
 			this.qr_canvas_array.push(canvas);
 
@@ -486,8 +486,8 @@ QRLogo.prototype = {
 		var source_canvas = this.qr_canvas_array[this.current_idx];
 		var dest_canvas = this.current_logo_output.canvas;
 		var dest_ctx = this.current_logo_output.ctx;
-		var bg_rgb = this.bg_color.color.rgb;
-		dest_ctx.fillStyle = "rgb(" + Math.round(bg_rgb[0]*255) + "," + Math.round(bg_rgb[1]*255) + "," + Math.round(bg_rgb[2]*255) +")";  
+		var bg_rgb = this.bg_color.jscolor.rgb;
+		dest_ctx.fillStyle = "rgb(" + Math.round(bg_rgb[0]) + "," + Math.round(bg_rgb[1]) + "," + Math.round(bg_rgb[2]) +")";
 		dest_ctx.fillRect (0, 0, dest_canvas.width, dest_canvas.height);
 
 		dest_ctx.drawImage(source_canvas, 0, 0);

@@ -140,15 +140,15 @@ QRCodeDecode.prototype = {
 	 */
 	encodeToCanvas: function (mode, text, version, ec_level, module_size, canvas, bg_rgb, module_rgb) {
 
-		if (!bg_rgb) { bg_rgb = [0.98, 0.98, 1.0]; }
-		if (!module_rgb) { module_rgb = [0.3, 0.05, 0.05]; }
+		if (!bg_rgb) { bg_rgb = [240, 240, 255]; }
+		if (!module_rgb) { module_rgb = [20, 10, 10]; }
 
 		var ctx = canvas.getContext('2d');
 
 		canvas.setBackground = function () {
-			ctx.fillStyle = "rgb(" + Math.round(bg_rgb[0]*255) + "," + Math.round(bg_rgb[1]*255) + "," + Math.round(bg_rgb[2]*255) + ")";
+			ctx.fillStyle = "rgb(" + Math.round(bg_rgb[0]) + "," + Math.round(bg_rgb[1]) + "," + Math.round(bg_rgb[2]) + ")";
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
-			ctx.fillStyle = "rgb(" + Math.round(module_rgb[0]*255) + "," + Math.round(module_rgb[1]*255) + "," + Math.round(module_rgb[2]*255) + ")";
+			ctx.fillStyle = "rgb(" + Math.round(module_rgb[0]) + "," + Math.round(module_rgb[1]) + "," + Math.round(module_rgb[2]) + ")";
 		};
 
 		canvas.setDark = function (x, y, d) {

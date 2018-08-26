@@ -97,10 +97,6 @@ div.buttons {
 
 button { padding: 0.5ex 1ex; } 
 
-canvas {
-	margin: 5px;
-}  
-
 h1, h2, h3, h4 {
 	margin-bottom: 0.2em;
 }

@@ -62,8 +62,8 @@ function on_logo_file_upload(evt) {
 		//console.log(module_hsl);
 		var bg_rgb = QRColor.hsl2rgb(bg_hsl[0], bg_hsl[1], bg_hsl[2]);
 		var module_rgb = QRColor.hsl2rgb(module_hsl[0], module_hsl[1], module_hsl[2]);
-		module_color.color.fromRGB(module_rgb[0]/255, module_rgb[1]/255, module_rgb[2]/255);
-		bg_color.color.fromRGB(bg_rgb[0]/255, bg_rgb[1]/255, bg_rgb[2]/255);
+		module_color.jscolor.fromRGB(module_rgb[0], module_rgb[1], module_rgb[2]);
+		bg_color.jscolor.fromRGB(bg_rgb[0], bg_rgb[1], bg_rgb[2]);
 	};
 
 	var canvas = document.getElementById("qrlogo_input_canvas");
@@ -106,8 +106,8 @@ function qrblend_onblend() {
 
 	var canvas = document.getElementById("qrlogo_canvas");
 	var ctx = canvas.getContext("2d");
-	var bg_color = document.getElementById("qrlogo_bg_color").color.rgb;
-	var module_color = document.getElementById("qrlogo_module_color").color.rgb;
+	var bg_color = document.getElementById("qrlogo_bg_color").jscolor.rgb;
+	var module_color = document.getElementById("qrlogo_module_color").jscolor.rgb;
 
 	var shade_factor = parseFloat(document.getElementById("qrlogo_shadefactor").value);
 //alert("SF " + document.getElementById("qrlogo_shadefactor").value + " -> " + shade_factor);

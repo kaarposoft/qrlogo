@@ -84,8 +84,8 @@ function qrencode_onencode() {
 	var qr = new QRCodeDecode();
 
 	var canvas = document.getElementById("qrlogo_canvas");
-	var bg_color = document.getElementById("qrlogo_bg_color").color.rgb;
-	var module_color = document.getElementById("qrlogo_module_color").color.rgb;
+	var bg_color = document.getElementById("qrlogo_bg_color").jscolor.rgb;
+	var module_color = document.getElementById("qrlogo_module_color").jscolor.rgb;
 
 	var mode = parseInt(document.getElementById("qrlogo_mode").value, 10);
 	var error_correction_level = parseInt(document.getElementById("qrlogo_errorcorrection").value, 10);
