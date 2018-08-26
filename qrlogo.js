@@ -318,7 +318,7 @@ QRLogo.prototype = {
 		var pixpermodule_min = Math.max(1, Math.ceil(logo_max/(n_modules)));
 
 		// Smallest logo; aka largest pixpermodule for QR
-		var pixpermodule_max = Math.max(1, Math.ceil(2.2*logo_max/(n_modules)));
+		var pixpermodule_max = Math.max(Math.ceil(21-this.version/2.0), Math.ceil(2.2*logo_max/(n_modules)));
 
 		var n_pixpermodule = (pixpermodule_max-pixpermodule_min);
 
