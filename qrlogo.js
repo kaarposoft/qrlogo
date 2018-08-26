@@ -276,32 +276,17 @@ QRLogo.prototype = {
 	/* ************************************************************ */
 	colorsFromImage: function () {
 
-		var ctx = this.logo_canvas.getContext('2d');
-		var image_data = ctx.getImageData(0, 0, this.logo_canvas.width, this.logo_canvas.height);
+                var ld = QRColor.canvas_light_dark(this.logo_canvas);
 
-		var min_col = 255;
-		var max_col = 0;
-		var min_pos = 0;
-		var max_pos = 0;
-
-		var p;
-		for (p = 0; p < image_data.data.length; p += 4) {
-			if (image_data.data[p+3] > 127) {
-				var v = 0.30 * image_data.data[p] + 0.59 * image_data.data[p+1] + 0.11 * image_data.data[p+2];
-				if (v < min_col) { min_col = v; min_pos = p; }
-				if (v > max_col) { max_col = v; max_pos = p; }
-			}
-		}
-
-		if (max_col-min_col < 10) { // not much contrast
-			if ((max_col + min_col) / 2 < 128) {
-				this.module_color.jscolor.fromRGB(image_data.data[min_pos], image_data.data[min_pos+1], image_data.data[min_pos+2]);
+		if (ld.light_brightness-ld.dark_brightness < 10) { // not much contrast
+			if ((ld.light_brightness+ld.dark_brightness) / 2 < 128) {
+				this.module_color.jscolor.fromRGB(ld.dark_rgb[0], ld.dark_rgb[1], ld.dark_rgb[2]);
 			} else {
-				this.bg_color.jscolor.fromRGB(image_data.data[max_pos], image_data.data[max_pos+1], image_data.data[max_pos+2]);
+				this.bg_color.jscolor.fromRGB(ld.light_rgb[0], ld.light_rgb[1], ld.light_rgb[2]);
 			}
 		} else {
-			this.module_color.jscolor.fromRGB(image_data.data[min_pos], image_data.data[min_pos+1], image_data.data[min_pos+2]);
-			this.bg_color.jscolor.fromRGB(image_data.data[max_pos], image_data.data[max_pos+1], image_data.data[max_pos+2]);
+			this.module_color.jscolor.fromRGB(ld.dark_rgb[0], ld.dark_rgb[1], ld.dark_rgb[2]);
+			this.bg_color.jscolor.fromRGB(ld.light_rgb[0], ld.light_rgb[1], ld.light_rgb[2]);
 		}		
 
 	},
