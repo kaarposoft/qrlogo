@@ -238,6 +238,8 @@ QRLogo.prototype = {
 
 	/* ************************************************************ */
 	onStart: function () {
+		console.info("QRLogo::onStart: Generating QR Logos");
+		console.time("QRLogo::onStart");
 		this.enableButtons(false);
 		this.shouldStop = false;
 		this.div_current.style.display = "block";
@@ -260,6 +262,7 @@ QRLogo.prototype = {
 		if (this.debug && this.debug_detailed) {
 		    this.div_debug_detailed.style.display = "block";
 		}
+		console.timeEnd("QRLogo::onStart");
 	},
 
 	/* ************************************************************ */

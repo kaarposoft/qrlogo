@@ -54,6 +54,9 @@ function qrencode_onload() {
 /* ************************************************************ */
 function qrencode_verify() {
 
+	console.info("qrencode_verify: Verifying generated QR Code");
+	console.time("qrencode_verify");
+
 	var mode = parseInt(document.getElementById("qrlogo_mode").value, 10);
 	var text = document.getElementById("qrlogo_text").value;
 	var crlf = document.getElementById("qrlogo_crlf");
@@ -76,12 +79,17 @@ function qrencode_verify() {
 
 	var decoded = qr.decodeImageData(imagedata, canvas.width, canvas.height);
 
+	console.timeEnd("qrencode_verify");
+
 	if (text !== decoded) { throw ("Decoded text does not match"); }
 }
 
 
 /* ************************************************************ */
 function qrencode_onencode() {
+
+	console.info("qrencode_onencode: Encoding text to QR Code");
+	console.time("qrencode_onencode");
 
 	var qr = new QRCodeDecode();
 
@@ -112,6 +120,8 @@ function qrencode_onencode() {
 
 	document.getElementById("qrlogo_version").innerHTML = version.toString();
 	document.getElementById("div_encoded").style.display = "block";
+
+	console.timeEnd("qrencode_onencode");
 
 	setTimeout(qrencode_verify, 0);
 }

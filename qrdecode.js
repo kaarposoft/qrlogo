@@ -79,6 +79,9 @@ function on_logo_file_upload(evt) {
 /* ************************************************************ */
 function qrdecode_ondecode() {
 
+	console.info("qrdecode_ondecode: Decoding QR Code");
+	console.time("qrdecode_ondecode");
+
 	document.getElementById("qrlogo_text").value = "";
 
 	var qr = new QRCodeDecode();
@@ -101,6 +104,8 @@ function qrdecode_ondecode() {
 	document.getElementById("qrlogo_text").value = decoded;
 
 	document.getElementById("div_decoded").style.display = "block";
+
+	console.timeEnd("qrdecode_ondecode");
 }
 
 
