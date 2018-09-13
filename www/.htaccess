@@ -1,0 +1,5 @@
+AddType text/html .html
+AddType text/css .css
+AddType image/png .png
+AddType application/javascript .js
+AddType application/wasm .wasm

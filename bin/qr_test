@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# ============================================================
+# qr_test: run qrlogo testcases
+# 1) Prepare for a development or release test
+# 2) Run testcases with cargo
+# ============================================================
+# Prerequisites:
+# Run qr_init
+# ============================================================
+
+set -o nounset
+set -o errexit
+
+PGM="$(basename $0)"
+cd "$(dirname "$0")/.."
+
+
+# ============================================================
+
+. cfg/upstream.sh
+
+
+# ============================================================
+
+if [ "${PGM}" = "qr_test_release" ]; then
+    MODE="release"
+    CARGO_OPT="--release"
+else
+    MODE="debug"
+    CARGO_OPT=""
+fi
+printf "\n>>> >>> mode: %s\n" "${MODE}"
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "testing"
+cargo +"${RUST_TOOLCHAIN}" test ${CARGO_OPT} "$@"
+printf "\n>>> >>> %s\n" "done"

@@ -1,0 +1,79 @@
+#!/bin/sh
+
+# ============================================================
+# qr_init: Prepare rust for use with qrlogo
+# 1) Initialize temporary directories
+# 2) Install specific nightly toolchain
+# 3) Get specific version of wasm-bindgen from git
+# 4) Compile wasm-bindgen
+# ============================================================
+# Prerequisites:
+#
+# maybe need to install development version of openssl
+# sudo dnf install openssl-devel
+#
+# install rust with https://sh.rustup.rs
+# ============================================================
+
+set -o nounset
+set -o errexit
+
+cd "$(dirname "$0")/.."
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "creating temporary directories"
+
+for F in wasm-bindgen target; do
+    if [ -L "$F" ]; then
+        D="$(readlink "$F")"
+	[ -d "$D" ] || mkdir -pv "$D"
+    fi
+done
+
+
+# ============================================================
+
+. cfg/upstream.sh
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "rustup install toolchain"
+rustup install "${RUST_TOOLCHAIN}"
+printf "\n>>> >>> %s\n" "rustup target add wasm32-unknown-unknown"
+rustup target add wasm32-unknown-unknown --toolchain "${RUST_TOOLCHAIN}"
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "rustup install rustfmt-preview"
+rustup component add rustfmt-preview --toolchain "${RUST_TOOLCHAIN}"
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "github wasm-bindgen"
+if [ -e "wasm-bindgen/.git" ]; then
+	:
+    (
+    	cd wasm-bindgen
+	T="$(git describe --tags)"
+	printf "### %s\n" "$T"
+	[ "$T" = "${WASM_BINDGEN}" ] || { git checkout master; git pull; }
+    )
+else
+    git clone https://github.com/rustwasm/wasm-bindgen.git
+fi
+(cd wasm-bindgen; git checkout tags/${WASM_BINDGEN})
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "build wasm-bindgen/crates/cli"
+cd ./wasm-bindgen/crates/cli
+cargo +"${RUST_TOOLCHAIN}" build --release
+
+
+printf "\n>>> >>> %s\n" "done"

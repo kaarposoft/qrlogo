@@ -91,32 +91,59 @@ function qrencode_onencode() {
 	console.info("qrencode_onencode: Encoding text to QR Code");
 	console.time("qrencode_onencode");
 
-	var qr = new QRCodeDecode();
+	let use_wasm = true;
 
-	var canvas = document.getElementById("qrlogo_canvas");
-	var bg_color = document.getElementById("qrlogo_bg_color").jscolor.rgb;
-	var module_color = document.getElementById("qrlogo_module_color").jscolor.rgb;
+	if (use_wasm) {
+		console.info("qrencode_onencode: using WASM");
+		var debug = document.getElementById("qrlogo_debug_checkbox").checked;
+		if (debug) {
+			qrlogo_wasm.set_loglevel(3);
+		} else {
+			qrlogo_wasm.set_loglevel(1);
+		}
+		var text = document.getElementById("qrlogo_text").value;
+		var crlf = document.getElementById("qrlogo_crlf");
+		crlf = crlf.options[crlf.selectedIndex].value;
+		text = text_crlf_mode(text, crlf, mode);
+		var mode = parseInt(document.getElementById("qrlogo_mode").value, 10);
+		var ec_level = parseInt(document.getElementById("qrlogo_errorcorrection").value, 10);
+		var version = qrlogo_wasm.version_from_length(text.length, mode, ec_level);
+		console.log("version " + version);
+		if (version == undefined) { throw new Error("text too long") }
+		var canvas = document.getElementById("qrlogo_canvas");
+		var ctx = canvas.getContext("2d");
+		var pix_per_module = parseInt(document.getElementById("qrlogo_pixpermodule").value, 10);
+		var bg_color_str = document.getElementById("qrlogo_bg_color").jscolor.toHEXString();
+		var module_color_str = document.getElementById("qrlogo_module_color").jscolor.toHEXString();
+		qrlogo_wasm.encode_to_canvas(text, version, mode, ec_level, ctx, bg_color_str, module_color_str, pix_per_module);
+	} else {
+		var qr = new QRCodeDecode();
 
-	var mode = parseInt(document.getElementById("qrlogo_mode").value, 10);
-	var error_correction_level = parseInt(document.getElementById("qrlogo_errorcorrection").value, 10);
-	var text = document.getElementById("qrlogo_text").value;
-	var crlf = document.getElementById("qrlogo_crlf");
-        crlf = crlf.options[crlf.selectedIndex].value;
-        text = text_crlf_mode(text, crlf, mode);
-	var pixpermodule = parseInt(document.getElementById("qrlogo_pixpermodule").value, 10);
+		var canvas = document.getElementById("qrlogo_canvas");
+		var bg_color = document.getElementById("qrlogo_bg_color").jscolor.rgb;
+		var module_color = document.getElementById("qrlogo_module_color").jscolor.rgb;
 
-	var version = qr.getVersionFromLength(error_correction_level, mode, text.length);
+		var mode = parseInt(document.getElementById("qrlogo_mode").value, 10);
+		var error_correction_level = parseInt(document.getElementById("qrlogo_errorcorrection").value, 10);
+		var text = document.getElementById("qrlogo_text").value;
+		var crlf = document.getElementById("qrlogo_crlf");
+		crlf = crlf.options[crlf.selectedIndex].value;
+		text = text_crlf_mode(text, crlf, mode);
+		var pixpermodule = parseInt(document.getElementById("qrlogo_pixpermodule").value, 10);
 
-	var debug = document.getElementById("qrlogo_debug_checkbox").checked;
-	var logger = null;
-	if (debug) {
-		logger = new Logger("div_debug_output");
-		logger.init();
-		qr.logger = logger;
-		document.getElementById("div_debug").style.display = "block";
+		var version = qr.getVersionFromLength(error_correction_level, mode, text.length);
+
+		var debug = document.getElementById("qrlogo_debug_checkbox").checked;
+		var logger = null;
+		if (debug) {
+			logger = new Logger("div_debug_output");
+			logger.init();
+			qr.logger = logger;
+			document.getElementById("div_debug").style.display = "block";
+		}
+
+		qr.encodeToCanvas(mode, text, version, error_correction_level, pixpermodule, canvas, bg_color, module_color);
 	}
-
-	qr.encodeToCanvas(mode, text, version, error_correction_level, pixpermodule, canvas, bg_color, module_color);
 
 	document.getElementById("qrlogo_version").innerHTML = version.toString();
 	document.getElementById("div_encoded").style.display = "block";

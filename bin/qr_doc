@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# ============================================================
+# qr_doc
+# Generate documentation for qrlogo
+# ============================================================
+# Prerequisites:
+# Run qr_init
+# ============================================================
+
+set -o nounset
+set -o errexit
+
+PGM="$(basename $0)"
+cd "$(dirname "$0")/.."
+DIR="$(pwd -P)"
+
+# ============================================================
+
+. cfg/upstream.sh
+
+
+# ============================================================
+
+if [ "${PGM}" = "qr_test_release" ]; then
+    MODE="release"
+    CARGO_OPT="--release"
+else
+    MODE="debug"
+    CARGO_OPT=""
+fi
+printf "\n>>> >>> mode: %s\n" "${MODE}"
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "documenting"
+cargo +"${RUST_TOOLCHAIN}" doc --no-deps --document-private-items
+printf "\n>>> >>> documentation should now be in: %s\n" "file://${DIR}/target/doc/qrlogo-wasm/index.html"
+printf "\n>>> >>> %s\n" "done"

@@ -1,0 +1,31 @@
+[package]
+name = "qrlogo-wasm"
+version = "0.1.0"
+authors = ["Henrik <henrik@kaarposoft.dk>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+#[target."cfg(not(test))".dependencies]
+#wasm-bindgen = "0.2"
+wasm-bindgen = { path = "./wasm-bindgen" }
+#wasm-bindgen-cli = { path = "./wasm-bindgen/crates/cli" }
+js-sys = { path = "./wasm-bindgen/crates/js-sys" }
+web-sys = { path = "./wasm-bindgen/crates/web-sys" }
+
+# The release profile, used for `cargo build --release`.
+[profile.release]
+debug = true #DEFAULT: false
+lto = true #DEFAULT: false
+debug-assertions = true #DEFAULT: false
+codegen-units = 1 #DEFAULT: 16
+overflow-checks = true #DEFAULT: false
+
+# The benchmarking profile, used for `cargo bench` and `cargo test --release`.
+[profile.bench]
+debug = true #DEFAULT: false
+lto = true #DEFAULT: false
+debug-assertions = true #DEFAULT: false
+codegen-units = 1 #DEFAULT: 16
+overflow-checks = true #DEFAULT: false

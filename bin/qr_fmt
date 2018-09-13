@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# ============================================================
+# qr_fmt:
+# format qrlogo rust source-code 
+# ============================================================
+# Prerequisites:
+# Run qr_init
+# ============================================================
+
+set -o nounset
+set -o errexit
+
+PGM="$(basename $0)"
+cd "$(dirname "$0")/.."
+
+
+# ============================================================
+
+. cfg/upstream.sh
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "format"
+rustup run "${RUST_TOOLCHAIN}" rustfmt --verbose src/lib.rs
+printf "\n>>> >>> %s\n" "done"

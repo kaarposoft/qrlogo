@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# ============================================================
+# qr_all
+# Run most generating commands for qrlogo
+# ============================================================
+# Prerequisites:
+# Run qr_init
+# ============================================================
+
+set -o nounset
+set -o errexit
+
+cd "$(dirname "$0")"
+
+for CMD in qr_init qr_doc qr_build qr_build_release qr_test_release; do
+    printf "\n\n==> ==> ===> ===> %s\n" "${CMD}"
+    time "./${CMD}"
+done

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -o nounset
+set -o errexit
+
+cd "$(dirname "$0")/.."
+
+printf "\n>>> >>> %s\n" "remove generated files"
+rm -rf dist target wasm-bindgen
+printf "\n>>> >>> %s\n" "done"

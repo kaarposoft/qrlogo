@@ -1,0 +1,71 @@
+#!/bin/sh
+
+# ============================================================
+# qr_build: build qrlogo
+# 1) Prepare for a development or release build
+# 2) Compile the qrlogo rust code into wasm
+# 3) Collect www (html, css, js) files into dist directory
+# 4) Process wasm file with wasm-bindgen and put result into dist directory
+# ============================================================
+# Prerequisites:
+# Run qr_init
+# ============================================================
+
+set -o nounset
+set -o errexit
+
+PGM="$(basename $0)"
+cd "$(dirname "$0")/.."
+
+
+# ============================================================
+
+. cfg/upstream.sh
+
+
+# ============================================================
+
+if [ "${PGM}" = "qr_build_release" ]; then
+    MODE="release"
+    CARGO_OPT="--release"
+    TARGET_DIR="release"
+else
+    MODE="debug"
+    CARGO_OPT=""
+    TARGET_DIR="debug"
+fi
+printf "\n>>> >>> mode: %s\n" "${MODE}"
+
+
+# ============================================================
+
+WASM_BINDGEN="./wasm-bindgen/target/release/wasm-bindgen"
+printf "\n>>> >>> wasm-bindgen: %s\n" "${WASM_BINDGEN}"
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "compiling rust"
+cargo +"${RUST_TOOLCHAIN}" build ${CARGO_OPT} --target wasm32-unknown-unknown
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "preparing dist dir"
+rm -rf dist; mkdir dist
+printf "\n>>> >>> %s\n" "copying www files to dist dir"
+cp -rp www/* www/.htaccess dist
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "running wasm-bindgen"
+${WASM_BINDGEN} target/wasm32-unknown-unknown/${TARGET_DIR}/qrlogo_wasm.wasm --no-typescript --no-modules --no-modules-global qrlogo_wasm --out-dir dist
+
+
+# ============================================================
+
+###printf "\n>>> >>> %s\n" "compressing dist files"
+###brotli dist/*.html dist/*.css dist/*.js dist/*.wasm
+
+printf "\n>>> >>> %s\n" "done"
