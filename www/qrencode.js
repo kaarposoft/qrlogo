@@ -159,3 +159,18 @@ function qrencode_download() {
 	document.location.href = document.getElementById("qrlogo_canvas").toDataURL().replace("image/png", "image/octet-stream");
 	return false;
 }
+
+/* ************************************************************ */
+function on_qrlogo_wasm_loaded () {
+        console.log("on_qrlogo_wasm_loaded: LOADED");
+        document.getElementById("button_encode").style.display = "block";
+
+}
+
+/* ************************************************************ */
+if (qrlogo_wasm_loaded) {
+        console.log("waiting for qrlogo_wasm_loaded");
+        qrlogo_wasm_loaded.then(()=>on_qrlogo_wasm_loaded());
+} else {
+        console.error("qrlogo_wasm_loaded not set");
+}

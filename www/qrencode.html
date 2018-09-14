@@ -21,6 +21,17 @@
     -->
 
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<script type="text/javascript">
+	    qrlogo_wasm_loaded = null;
+	    if (!window.Promise) {
+                console.error("Browser does not support Promise");
+                alert("Browser does not support Promise");
+	    } else {
+		qrlogo_wasm_loaded = new Promise(function(resolve, reject){
+		    qrlogo_wasm_loaded_resolve = resolve;
+		});
+            }
+	</script>
 
 	<script type="text/javascript" src="modernizr.js"></script>
 	<script type="text/javascript" src="common.js"></script>
@@ -29,8 +40,7 @@
 	<script type="text/javascript" src="qrencode.js"></script>
 	<script type="text/javascript" src="jscolor.js"></script>
 
-	<script type="text/javascript" src="qrlogo_wasm.js"></script>
-	<script type="text/javascript" src="qrlogo_wasm_load.js"></script>
+	<script type="text/javascript" src="qrlogo_wasm.js" defer></script>
 
 	<link rel="StyleSheet" type="text/css" href="default.css">
 	<link rel="shortcut icon" href="favicon.ico" />
@@ -131,7 +141,7 @@
 
         </div>
         <div class="buttons">
-            <button type="button" onclick="qrencode_onencode();">Encode QR</button>
+            <button id="button_encode" style="display:none" type="button" onclick="qrencode_onencode();">Encode QR</button>
         </div>
 
     </form>

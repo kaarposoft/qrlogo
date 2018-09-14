@@ -62,6 +62,9 @@ cp -rp www/* www/.htaccess dist
 printf "\n>>> >>> %s\n" "running wasm-bindgen"
 ${WASM_BINDGEN} target/wasm32-unknown-unknown/${TARGET_DIR}/qrlogo_wasm.wasm --no-typescript --no-modules --no-modules-global qrlogo_wasm --out-dir dist
 
+printf "\n>>> >>> %s\n" "adding loading code"
+printf "\n\n%s\n" "// =========================================" >> dist/qrlogo_wasm.js
+cat www_parts/qrlogo_wasm_load.js >> dist/qrlogo_wasm.js
 
 # ============================================================
 
