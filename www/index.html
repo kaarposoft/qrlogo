@@ -63,10 +63,12 @@
 	<img src="testpics/qr_firefox.png" alt="http://www.mozilla.com/firefox/">
     </div>
 
-    <div id="nojs" class="jserror">
-        <b>Your browser does not seem to have JavaScript enabled</b>
-        <br>(or javascript code did not load; check browser logs)
-    </div>
+    <noscript>
+        <div class="jserror">
+            <b>Your browser does not seem to have JavaScript enabled</b>
+            <br>(or javascript code did not load; check browser logs)
+        </div>
+    </noscript>
 
     <div id="noHTML5canvas" class="jserror">
         <b>Your browser does not seem to support one or more of the following:</b>

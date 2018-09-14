@@ -48,7 +48,6 @@
 
 /* ************************************************************ */
 function qrdecode_onload() {
-	document.getElementById("nojs").style.display = "none";
 	if (Modernizr.canvas && Modernizr.filereader) { document.getElementById("noHTML5canvas").style.display = "none"; }
 	var qparms = getQueryParams(document.location.search);
 	var url = qparms.url;

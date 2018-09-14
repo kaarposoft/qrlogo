@@ -46,7 +46,6 @@
 
 /* ************************************************************ */
 function qrencode_onload() {
-	document.getElementById("nojs").style.display = "none";
 	if (Modernizr.canvas && Modernizr.filereader) { document.getElementById("noHTML5canvas").style.display = "none"; }
 }
 

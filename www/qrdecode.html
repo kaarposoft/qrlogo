@@ -54,10 +54,12 @@
         <p>QR-Logo is pure JavaScript, so it runs in your own browser.
     </div>
 
-    <div id="nojs" class="jserror">
-        <b>Your browser does not seem to have JavaScript enabled</b>
-        <br>(or javascript code did not load; check browser logs)
-    </div>
+    <noscript>
+        <div class="jserror">
+            <b>Your browser does not seem to have JavaScript enabled</b>
+            <br>(or javascript code did not load; check browser logs)
+        </div>
+    </noscript>
 
     <div id="noHTML5canvas" class="jserror">
         <b>Your browser does not seem to support one or more of the following:</b>
