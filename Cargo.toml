@@ -14,8 +14,8 @@ crate-type = ["cdylib"]
 # *** *** MAKE SURE wasm-bindgen MATCHES cfg/upstream.sh !!!
 # *** ***
 #
-wasm-bindgen = "=0.2.19"
-js-sys = "=0.2.4"
+wasm-bindgen = "=0.2.21"
+js-sys = "=0.2.6"
 
 # The release profile, used for `cargo build --release`.
 [profile.release]
