@@ -88,9 +88,8 @@ pub fn shall_log(lvl: usize) -> bool {
 #[macro_export]
 macro_rules! error {
     ($($t:tt)*) => ({
-        use wasm_bindgen::JsValue;
-        use web_sys::console;
-        console::error(JsValue::from(format!($($t)*)))
+        use web_sys_fallback::console;
+        console::error_with_str(&format!($($t)*))
     })
 }
 
@@ -98,9 +97,8 @@ macro_rules! error {
 #[macro_export]
 macro_rules! warn {
     ($($t:tt)*) => ({
-        use wasm_bindgen::JsValue;
-        use web_sys::console;
-        console::warn(JsValue::from(format!($($t)*)))
+        use web_sys_fallback::console;
+        console::warn_with_str(&format!($($t)*))
     })
 }
 
@@ -108,9 +106,8 @@ macro_rules! warn {
 #[macro_export]
 macro_rules! log {
     ($($t:tt)*) => (if (logging::MAX_LOG_LEVEL>0) && logging::shall_log(1) {
-        use wasm_bindgen::JsValue;
-        use web_sys::console;
-        console::log(JsValue::from(format!($($t)*)))
+        use web_sys_fallback::console;
+        console::log_with_str(&format!($($t)*))
     })
 }
 
@@ -118,9 +115,8 @@ macro_rules! log {
 #[macro_export]
 macro_rules! debug {
     ($($t:tt)*) => (if (logging::MAX_LOG_LEVEL>1) && logging::shall_log(2) {
-        use wasm_bindgen::JsValue;
-        use web_sys::console;
-        console::log(JsValue::from(format!($($t)*)))
+        use web_sys_fallback::console;
+        console::log_with_str(&format!($($t)*))
     })
 }
 
@@ -128,9 +124,8 @@ macro_rules! debug {
 #[macro_export]
 macro_rules! trace {
     ($($t:tt)*) => (if (logging::MAX_LOG_LEVEL>2) && logging::shall_log(3) {
-        use wasm_bindgen::JsValue;
-        use web_sys::console;
-        console::log(JsValue::from(format!($($t)*)))
+        use web_sys_fallback::console;
+        console::log_with_str(&format!($($t)*))
     })
 }
 
@@ -138,9 +133,8 @@ macro_rules! trace {
 #[macro_export]
 macro_rules! insane {
     ($($t:tt)*) => (if (logging::MAX_LOG_LEVEL>3) && logging::shall_log(4) {
-        use wasm_bindgen::JsValue;
-        use web_sys::console;
-        console::log(JsValue::from(format!($($t)*)))
+        use web_sys_fallback::console;
+        console::log_with_str(&format!($($t)*))
     })
 }
 

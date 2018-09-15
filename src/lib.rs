@@ -24,17 +24,15 @@
 //  ************************************************************
 
 extern crate wasm_bindgen;
-extern crate web_sys;
-
 use wasm_bindgen::prelude::*;
-use web_sys::CanvasRenderingContext2D;
 
 #[macro_use]
 pub mod logging;
-
 pub mod qr;
 pub mod qrencode;
 pub mod reedsolomon;
+pub mod web_sys_fallback;
+use web_sys_fallback::CanvasRenderingContext2D;
 
 
 //  ************************************************************

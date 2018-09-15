@@ -22,11 +22,11 @@
 //! Encode text to QR code
 //  ************************************************************
 
-use web_sys::CanvasRenderingContext2D;
 
 use super::logging;
 use super::qr;
 use super::reedsolomon::ReedSolomonEncoder;
+use super::web_sys_fallback::CanvasRenderingContext2D;
 use super::{ErrorCorrectionLevel, Mode};
 
 
@@ -44,7 +44,7 @@ pub fn onto_context(
     log!("onto_context: begin transfer qr bitmap onto context");
     let n = matrix.get_dim();
     let dim = f64::ceil(pix_per_module * ((2 * qr::QUIET_ZONE + n) as f64)) as u32;
-    let canvas = ctx.canvas().unwrap(); // TODO
+    let canvas = ctx.canvas(); //.unwrap(); // TODO
     canvas.set_height(dim);
     canvas.set_width(dim);
     ctx.save();

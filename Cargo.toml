@@ -12,7 +12,6 @@ crate-type = ["cdylib"]
 wasm-bindgen = { path = "./wasm-bindgen" }
 #wasm-bindgen-cli = { path = "./wasm-bindgen/crates/cli" }
 js-sys = { path = "./wasm-bindgen/crates/js-sys" }
-web-sys = { path = "./wasm-bindgen/crates/web-sys" }
 
 # The release profile, used for `cargo build --release`.
 [profile.release]
