@@ -54,26 +54,11 @@ rustup component add rustfmt-preview --toolchain "${RUST_TOOLCHAIN}"
 
 # ============================================================
 
-printf "\n>>> >>> %s\n" "github wasm-bindgen"
-if [ -e "wasm-bindgen/.git" ]; then
-	:
-    (
-    	cd wasm-bindgen
-	T="$(git describe --tags)"
-	printf "### %s\n" "$T"
-	[ "$T" = "${WASM_BINDGEN}" ] || { git checkout master; git pull; }
-    )
+printf "\n>>> >>> %s\n" "wasm-bindgen-cli"
+if cargo +"${RUST_TOOLCHAIN}" install --list | grep -Eq "${WASM_BINDGEN_VERSION_STRING}" 2>/dev/null; then
+	printf "\n>>> >>> %s\n" "wasm-bindgen-cli ${WASM_BINDGEN} already installed"
 else
-    git clone https://github.com/rustwasm/wasm-bindgen.git
+	cargo +"${RUST_TOOLCHAIN}" install --force ${WASM_BINDGEN_INSTALL} wasm-bindgen-cli
 fi
-(cd wasm-bindgen; git checkout tags/${WASM_BINDGEN})
-
-
-# ============================================================
-
-printf "\n>>> >>> %s\n" "build wasm-bindgen/crates/cli"
-cd ./wasm-bindgen/crates/cli
-cargo +"${RUST_TOOLCHAIN}" build --release
-
 
 printf "\n>>> >>> %s\n" "done"

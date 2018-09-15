@@ -5,16 +5,12 @@ RUST_TOOLCHAIN="nightly-2018-09-13"
 printf "\n>>> >>> RUST_TOOLCHAIN: %s\n" "${RUST_TOOLCHAIN}"
 
 # ============================================================
-# Use sepecific version of wasm-bindgen
-# TODO: When wasm-bindgen stabilizes, put those definitions into Cargo.toml
-# This can only be done sensibly when the wasm-bindgen/crates js-sys etc.
-#     have been split off into separate packages.
+# Use sepecific version of wasm-bindgen-cli
+# **** ****
+# **** **** MAKE SURE THAT THE VERSION IS THE SAME AS IN Cargo.toml !!!
+# **** ****
 # ============================================================
 WASM_BINDGEN="0.2.19"
 printf ">>> >>> WASM_BINDGEN: %s\n" "${WASM_BINDGEN}"
-
-# ============================================================
-# If you modify the above to upgrade to a newer version of rust or wasm-bindgen
-# you may also want to remove Cargo.lock
-# to pick up newer crate dependencies
-# ============================================================
+WASM_BINDGEN_INSTALL="--version=${WASM_BINDGEN}"
+WASM_BINDGEN_VERSION_STRING="wasm-bindgen-cli v${WASM_BINDGEN}"

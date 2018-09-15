@@ -39,12 +39,6 @@ printf "\n>>> >>> mode: %s\n" "${MODE}"
 
 # ============================================================
 
-WASM_BINDGEN="./wasm-bindgen/target/release/wasm-bindgen"
-printf "\n>>> >>> wasm-bindgen: %s\n" "${WASM_BINDGEN}"
-
-
-# ============================================================
-
 printf "\n>>> >>> %s\n" "compiling rust"
 cargo +"${RUST_TOOLCHAIN}" build ${CARGO_OPT} --target wasm32-unknown-unknown
 
@@ -60,7 +54,7 @@ cp -rp www/* www/.htaccess dist
 # ============================================================
 
 printf "\n>>> >>> %s\n" "running wasm-bindgen"
-${WASM_BINDGEN} target/wasm32-unknown-unknown/${TARGET_DIR}/qrlogo_wasm.wasm --no-typescript --no-modules --no-modules-global qrlogo_wasm --out-dir dist
+wasm-bindgen target/wasm32-unknown-unknown/${TARGET_DIR}/qrlogo_wasm.wasm --no-typescript --no-modules --no-modules-global qrlogo_wasm --out-dir dist
 
 printf "\n>>> >>> %s\n" "adding loading code"
 printf "\n\n%s\n" "// =========================================" >> dist/qrlogo_wasm.js
