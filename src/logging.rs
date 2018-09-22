@@ -53,11 +53,11 @@ pub static mut LOG_LEVEL: AtomicUsize = AtomicUsize::new(2);
 /// Static maximal logging level (defined by cargo configuration)
 //  ************************************************************
 
-#[cfg(release)]
-pub const MAX_LOG_LEVEL: usize = 2;
-
-#[cfg(not(release))]
+#[cfg(debug_assertions)]
 pub const MAX_LOG_LEVEL: usize = 5;
+
+#[cfg(not(debug_assertions))]
+pub const MAX_LOG_LEVEL: usize = 2;
 
 
 //  ************************************************************

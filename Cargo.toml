@@ -21,7 +21,6 @@ js-sys = "=0.2.6"
 [profile.release]
 debug = true #DEFAULT: false
 lto = true #DEFAULT: false
-debug-assertions = true #DEFAULT: false
 codegen-units = 1 #DEFAULT: 16
 overflow-checks = true #DEFAULT: false
 
@@ -29,6 +28,5 @@ overflow-checks = true #DEFAULT: false
 [profile.bench]
 debug = true #DEFAULT: false
 lto = true #DEFAULT: false
-debug-assertions = true #DEFAULT: false
 codegen-units = 1 #DEFAULT: 16
 overflow-checks = true #DEFAULT: false
