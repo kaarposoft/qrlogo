@@ -186,39 +186,34 @@ fn set_timing_patterns(matrix: &mut Matrix, n_modules: usize) {
 //  ************************************************************
 fn set_version(matrix: &mut Matrix, version: u8, n_modules: usize) {
     let mut pattern = qr::version_info(version);
-    for y in 0..6 {
-        for x in n_modules - 11..n_modules - 11 + 3 {
-            if (pattern & 1) > 0 {
-                matrix.set_all(x, y);
-                matrix.set_all(y, x);
-            }
-            pattern /= 2;
+    for i in 0..qr::N_VERSION_BITS {
+        let (a, b) = qr::version_bit_pos(i);
+        let x = n_modules - 11 + a;
+        let y = b;
+        if (pattern & 1) > 0 {
+            matrix.set_all(x, y);
+            matrix.set_all(y, x);
         }
+        pattern /= 2;
     }
 }
 
 
 //  ************************************************************
 fn mark_and_set_alignment_patterns(marks: &mut Matrix, matrix: &mut Matrix, version: u8, n_modules: usize) {
-    for x in qr::alignment_patterns(version) {
-        let x = x as usize;
-        for y in qr::alignment_patterns(version) {
-            let y = y as usize;
-            if (x > 6 && y > 6) || (x > 6 && x < n_modules - 6 - 5) || (y > 6 && y < n_modules - 6 - 5) {
-                let x = x - 2;
-                let y = y - 2;
-                // Outer 5x5 black boundary
-                mark_rect(marks, x, y, 5, 5);
-                for i in 0..=3 {
-                    matrix.set_all(x + i, y);
-                    matrix.set_all(x + 4, y + i);
-                    matrix.set_all(x + 4 - i, y + 4);
-                    matrix.set_all(x, y + 4 - i);
-                }
-                // center black
-                matrix.set_all(x + 2, y + 2);
-            }
+    for (x, y) in qr::AlignmentPatternIterator::new(version) {
+        let x = x - 2;
+        let y = y - 2;
+        // Outer 5x5 black boundary
+        mark_rect(marks, x, y, 5, 5);
+        for i in 0..=3 {
+            matrix.set_all(x + i, y);
+            matrix.set_all(x + 4, y + i);
+            matrix.set_all(x + 4 - i, y + 4);
+            matrix.set_all(x, y + 4 - i);
         }
+        // center black
+        matrix.set_all(x + 2, y + 2);
     }
 }
 
@@ -246,43 +241,13 @@ fn set_format(matrix: &mut Matrix, n_modules: usize, ec: ErrorCorrectionLevel) {
     }
     trace!("set_format: bytes={:?}", bytes);
 
-    // North-West corner
-    trace!("set_format: NW");
-    let mut i = 0;
-    let x = 8;
-    for y in 0..=5 {
-        matrix.set(x, y, bytes[i]);
-        i += 1;
+    for i in 0..qr::N_FORMAT_BITS {
+        let [(x0, y0), (x1, y1)] = qr::format_bit_positions(i, n_modules);
+        matrix.set(x0, y0, bytes[i]);
+        matrix.set(x1, y1, bytes[i]);
     }
-    matrix.set(8, 7, bytes[i]);
-    i += 1;
-    matrix.set(8, 8, bytes[i]);
-    i += 1;
-    matrix.set(7, 8, bytes[i]);
-    i += 1;
-    let y = 8;
-    for xx in 0..=5 {
-        let x = 5 - xx;
-        matrix.set(x, y, bytes[i]);
-        i += 1;
-    }
-    // NE and SW
-    trace!("set_format: NESW");
-    let mut i = 0;
-    // North-East corner
-    let y = 8;
-    for xx in 0..8 {
-        let x = n_modules - 1 - xx;
-        matrix.set(x, y, bytes[i]);
-        i += 1;
-    }
-    // South-west corner
-    let x = 8;
-    for y in n_modules - 7..n_modules - 1 {
-        matrix.set(x, y, bytes[i]);
-        i += 1;
-    }
-    matrix.set_all(8, n_modules - 8);
+    let (xb, yb) = qr::format_bit_black_position(n_modules);
+    matrix.set_all(xb, yb);
 }
 
 

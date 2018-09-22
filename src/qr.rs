@@ -342,7 +342,116 @@ pub fn alignment_patterns(version: u8) -> Vec<u8> {
     }
 }
 
+//  ************************************************************
 
+pub struct AlignmentPatternIterator {
+    patterns: Vec<u8>,
+    i: usize,
+    j: usize,
+}
+
+impl AlignmentPatternIterator {
+    pub fn new(version: u8) -> Self {
+        AlignmentPatternIterator { patterns: alignment_patterns(version), i: 0, j: 0 }
+    }
+}
+
+impl Iterator for AlignmentPatternIterator {
+    type Item = (usize, usize);
+    fn next(&mut self) -> Option<Self::Item> {
+        let pats = &self.patterns;
+        let n = pats.len();
+        while self.i < n {
+            while self.j < n {
+                let ii = self.i;
+                let jj = self.j;
+                //log!("%%%%%%%%%%%% {} {}", ii, jj);
+                self.j += 1;
+                let good = if ii == 0 {
+                    (jj > 0) && (jj < n - 1)
+                } else if jj == 0 {
+                    (ii > 0) && (ii < n - 1)
+                } else {
+                    true
+                };
+                if good {
+                    return Some((pats[ii] as usize, pats[jj] as usize));
+                }
+            }
+            self.i += 1;
+            self.j = 0;
+        }
+        None
+    }
+}
+
+//  ************************************************************
+
+pub const N_VERSION_BITS: usize = 3 * 6;
+
+//  ************************************************************
+
+pub fn version_bit_pos(n: usize) -> (usize, usize) {
+    [
+        (0, 0),
+        (1, 0),
+        (2, 0),
+        (0, 1),
+        (1, 1),
+        (2, 1),
+        (0, 2),
+        (1, 2),
+        (2, 2),
+        (0, 3),
+        (1, 3),
+        (2, 3),
+        (0, 4),
+        (1, 4),
+        (2, 4),
+        (0, 5),
+        (1, 5),
+        (2, 5),
+    ][n]
+}
+
+//  ************************************************************
+
+pub const N_FORMAT_BITS: usize = 15;
+
+//  ************************************************************
+
+pub fn format_bit_positions(n: usize, n_modules: usize) -> [(usize, usize); 2] {
+    let n_modules = n_modules as i32;
+    let ((x0, y0), (mut x1, mut y1)) = [
+        ((8, 0), (-1, 8)),
+        ((8, 1), (-2, 8)),
+        ((8, 2), (-3, 8)),
+        ((8, 3), (-4, 8)),
+        ((8, 4), (-5, 8)),
+        ((8, 5), (-6, 8)),
+        ((8, 7), (-7, 8)),
+        ((8, 8), (-8, 8)),
+        ((7, 8), (8, -7)),
+        ((5, 8), (8, -6)),
+        ((4, 8), (8, -5)),
+        ((3, 8), (8, -4)),
+        ((2, 8), (8, -3)),
+        ((1, 8), (8, -2)),
+        ((0, 8), (8, -1)),
+    ][n];
+    if x1 < 0 {
+        x1 = n_modules + x1;
+    }
+    if y1 < 0 {
+        y1 = n_modules + y1;
+    }
+    [(x0, y0), (x1 as usize, y1 as usize)]
+}
+//  ************************************************************
+
+pub fn format_bit_black_position(n_modules: usize) -> (usize, usize) {
+    (8, n_modules - 8)
+}
 //  ************************************************************
 
 pub fn format_info(mask: u8, ec: ErrorCorrectionLevel) -> u16 {
