@@ -88,7 +88,6 @@ pub fn encode(text: &[u8], version: u8, mode: Mode, ec: ErrorCorrectionLevel) ->
         n_modules, n_codewords, n_ec_codewords, n_data_codewords, data_capacity,
     );
     let mut matrix = Matrix::new(n_modules);
-    let mut marks = Matrix::new(n_modules);
 
     // Finder
     let n7 = n_modules - 7;
@@ -96,25 +95,15 @@ pub fn encode(text: &[u8], version: u8, mode: Mode, ec: ErrorCorrectionLevel) ->
     set_finder_pattern(&mut matrix, n7, 0);
     set_finder_pattern(&mut matrix, 0, n7);
 
-    // Finder and Format
-    let n8 = n_modules - 8;
-    mark_rect(&mut marks, 0, 0, 9, 9);
-    mark_rect(&mut marks, n8, 0, 8, 9);
-    mark_rect(&mut marks, 0, n8, 9, 8);
-
     // Timing
     set_timing_patterns(&mut matrix, n_modules);
-    mark_rect(&mut marks, 8, 6, n8 - 8, 1);
-    mark_rect(&mut marks, 6, 8, 1, n8 - 8);
 
     if version >= 7 {
         set_version(&mut matrix, version, n_modules);
-        mark_rect(&mut marks, 0, n_modules - 11, 6, 3);
-        mark_rect(&mut marks, n_modules - 11, 0, 3, 6);
     }
 
     // Alignment
-    mark_and_set_alignment_patterns(&mut marks, &mut matrix, version, n_modules);
+    set_alignment_patterns(&mut matrix, version, n_modules);
 
     // Masks
     let mask = create_mask_patterns();
@@ -139,21 +128,12 @@ pub fn encode(text: &[u8], version: u8, mode: Mode, ec: ErrorCorrectionLevel) ->
     let data_bytes = add_error_correction(text_bytes, version, ec);
     let data_bits = BitSeq::from(data_bytes);
 
-    set_data_snaked(&mut matrix, &marks, &mask, &data_bits, version, n_modules);
+    set_data_snaked(&mut matrix, &mask, &data_bits, version);
     let p = best_penalty(&matrix, n_modules);
     matrix.select(p);
     log!("encode: done encoding qr code");
     matrix.select(0);
     matrix
-}
-
-//  ************************************************************
-fn mark_rect(marks: &mut Matrix, x: usize, y: usize, w: usize, h: usize) {
-    for i in x..x + w {
-        for j in y..y + h {
-            marks.set_all(i, j);
-        }
-    }
 }
 
 //  ************************************************************
@@ -200,12 +180,11 @@ fn set_version(matrix: &mut Matrix, version: u8, n_modules: usize) {
 
 
 //  ************************************************************
-fn mark_and_set_alignment_patterns(marks: &mut Matrix, matrix: &mut Matrix, version: u8, n_modules: usize) {
+fn set_alignment_patterns(matrix: &mut Matrix, version: u8, n_modules: usize) {
     for (x, y) in qr::AlignmentPatternIterator::new(version) {
         let x = x - 2;
         let y = y - 2;
         // Outer 5x5 black boundary
-        mark_rect(marks, x, y, 5, 5);
         for i in 0..=3 {
             matrix.set_all(x + i, y);
             matrix.set_all(x + 4, y + i);
@@ -401,41 +380,23 @@ fn add_error_correction(text_bytes: Vec<u8>, version: u8, ec: ErrorCorrectionLev
 }
 
 //  ************************************************************
-fn set_data_snaked(matrix: &mut Matrix, marks: &Matrix, mask: &Matrix, bits: &BitSeq, version: u8, n_modules: usize) {
-    let mut bi = bits.into_iter();
-    let mut writing_up = true;
-    let mut j = n_modules - 1 + 2;
+fn set_data_snaked(matrix: &mut Matrix, mask: &Matrix, bits: &BitSeq, version: u8) {
     debug!("set_data_snaked: begin");
+    let mut bi = bits.into_iter();
     let mut rem_bits = 0;
-    while j > 1 {
-        j -= 2;
-        if j == 6 {
-            // Skip whole column with vertical alignment pattern;
-            // saves time and makes the other code proceed more cleanly
-            j -= 1;
-        }
-        for ii in 0..n_modules {
-            let i = if writing_up { n_modules - 1 - ii } else { ii };
-            for k in 0..=1 {
-                insane!("set_data_snaked: loop j={} i={} k={} [{},{}]", j, i, k, j - k, i);
-                if !marks.get(j - k, i) > 0 {
-                    match bi.next() {
-                        None => {
-                            let m = mask.get((j - k) % 6, i % 6);
-                            matrix.set(j - k, i, m);
-                            rem_bits += 1;
-                        }
-                        Some(v) => {
-                            let m = mask.get((j - k) % 6, i % 6);
-                            let b = if v { !m } else { m };
-                            insane!("set_data_snaked: set v={} m={} b={}", v, m, b);
-                            matrix.set(j - k, i, b);
-                        }
-                    }
-                }
+    for (x, y) in qr::SnakeDataIterator::new(version) {
+        let m = mask.get(x % 6, y % 6);
+        match bi.next() {
+            None => {
+                matrix.set(x, y, m);
+                rem_bits += 1;
+            }
+            Some(v) => {
+                let b = if v { !m } else { m };
+                insane!("set_data_snaked: set v={} m={} b={}", v, m, b);
+                matrix.set(x, y, b);
             }
         }
-        writing_up = !writing_up;
     }
     let rem_bits_expected = qr::n_remainder_bits(version);
     if rem_bits != rem_bits_expected {

@@ -40,8 +40,25 @@ pub const VERSION_MAX: u8 = 40;
 
 pub const QUIET_ZONE: usize = 4;
 
+pub const MODULES_MIN: usize = 17 + 4 * (VERSION_MIN as usize);
 pub const MODULES_MAX: usize = 17 + 4 * (VERSION_MAX as usize);
 
+
+//  ************************************************************
+
+pub fn min_max_module_pixels(img_width: usize, img_height: usize) -> (usize, usize) {
+    let min_dim = usize::min(img_width, img_height);
+    let max_dim = usize::max(img_width, img_height);
+    // A version 40 QR Code covering half the image
+    let cover = 2;
+    let min = usize::max(1, max_dim / cover / MODULES_MAX);
+    // A version 1 QR Code covering the whole image
+    let max = usize::max(2, min_dim / MODULES_MIN);
+    (min, max)
+}
+
+
+//  ************************************************************
 
 #[rustfmt::skip]
 pub fn version_from_length(len: usize, mode: Mode, ec: ErrorCorrectionLevel) -> Option<u8> {
@@ -1104,6 +1121,137 @@ mod qr {
                         ecb2.k
                     );
                 }
+            }
+        }
+    }
+}
+
+//  ************************************************************
+pub struct SnakeDataIterator {
+    version: u8,
+    n_modules: usize,
+    marks: Vec<bool>,
+    first: bool,
+    x: usize,
+    y: usize,
+    dx: usize,
+    up: bool,
+}
+
+//  ************************************************************
+impl SnakeDataIterator {
+    pub fn new(version: u8) -> Self {
+        let n_modules = n_modules_from_version(version);
+        let marks = vec![false; n_modules * n_modules];
+        let mut sdi =
+            SnakeDataIterator { version, n_modules, marks, first: true, x: n_modules - 2, y: n_modules - 1, dx: 1, up: true };
+        sdi.mark();
+        sdi
+    }
+    fn get_mark(&self, x: usize, y: usize) -> bool {
+        self.marks[x * self.n_modules + y]
+    }
+    fn mark_rect(&mut self, x0: usize, y0: usize, w: usize, h: usize) {
+        for x in x0..x0 + w {
+            for y in y0..y0 + h {
+                self.marks[x * self.n_modules + y] = true;
+            }
+        }
+    }
+    fn mark(&mut self) {
+        // Finder and Format
+        let n8 = self.n_modules - 8;
+        self.mark_rect(0, 0, 9, 9);
+        self.mark_rect(n8, 0, 8, 9);
+        self.mark_rect(0, n8, 9, 8);
+
+        // Timing
+        self.mark_rect(8, 6, n8 - 8, 1);
+        self.mark_rect(6, 8, 1, n8 - 8);
+
+        // Version
+        if self.version >= 7 {
+            let n11 = self.n_modules - 11;
+            self.mark_rect(0, n11, 6, 3);
+            self.mark_rect(n11, 0, 3, 6);
+        }
+
+        // Alignment
+        for (x, y) in AlignmentPatternIterator::new(self.version) {
+            let x = x - 2;
+            let y = y - 2;
+            self.mark_rect(x, y, 5, 5);
+        }
+
+        if false { self.log_mark(); }
+    }
+
+    fn log_mark(&self) {
+        for y in 0..self.n_modules {
+            let mut s = String::with_capacity(self.n_modules);
+            for x in 0..self.n_modules {
+                if self.get_mark(x, y) {
+                    s.push('@');
+                } else {
+                    s.push('.');
+                }
+                s.push(' ');
+            }
+            log!("log_mark[{:3}] {}", y, s);
+        }
+    }
+}
+
+//  ************************************************************
+impl Iterator for SnakeDataIterator {
+    type Item = (usize, usize);
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.first {
+            self.first = false;
+            let (x, y) = (self.x + self.dx, self.y);
+            trace!("SnakeDataIterator: first [{}, {}]", x, y);
+            return Some((x, y));
+        }
+        loop {
+            if self.dx == 1 {
+                self.dx = 0;
+            } else {
+                self.dx = 1;
+                let mut turn = false;
+                if self.up {
+                    if self.y == 0 {
+                        turn = true;
+                    } else {
+                        self.y -= 1;
+                    }
+                } else {
+                    if self.y >= self.n_modules - 1 {
+                        turn = true;
+                    } else {
+                        self.y += 1;
+                    }
+                };
+                if turn {
+                    trace!("SnakeDataIterator: next turning");
+                    if self.x < 2 {
+                        trace!("SnakeDataIterator: next None");
+                        return None;
+                    }
+                    self.up = !self.up;
+                    self.x -= 2;
+                    if self.x == 5 {
+                        // Skip whole column with vertical alignment pattern;
+                        // saves time and makes the other code proceed more cleanly
+                        self.x -= 1;
+                    }
+                }
+            }
+            let (x, y) = (self.x + self.dx, self.y);
+            if self.get_mark(x, y) {
+                trace!("SnakeDataIterator: skipping [{}, {}]", x, y);
+            } else {
+                trace!("SnakeDataIterator: next [{}, {}]", x, y);
+                return Some((x, y));
             }
         }
     }
