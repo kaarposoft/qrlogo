@@ -126,6 +126,7 @@ pub fn encode(text: &[u8], version: u8, mode: Mode, ec: ErrorCorrectionLevel) ->
 
     let text_bytes = text_bits.into_bytes();
     let data_bytes = add_error_correction(text_bytes, version, ec);
+    debug!("encode: data_bytes: len={} {:X?}", data_bytes.len(), data_bytes);
     let data_bits = BitSeq::from(data_bytes);
 
     set_data_snaked(&mut matrix, &mask, &data_bits, version);
