@@ -304,7 +304,7 @@ fn create_mask_patterns() -> Matrix {
                 };
                 pat <<= 1;
             }
-            m.set(i as usize, j as usize, val);
+            m.set(i, j, val);
         }
     }
     m

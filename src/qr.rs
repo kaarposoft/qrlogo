@@ -219,7 +219,7 @@ pub fn n_count_bits(version: u8, mode: Mode) -> u16 {
 
 //  ************************************************************
 
-pub fn mask(m: u8, j: u8, i: u8) -> bool {
+pub fn mask(m: u8, j: usize, i: usize) -> bool {
     match m {
         0 => (i + j) % 2 == 0,
         1 => i % 2 == 0,
