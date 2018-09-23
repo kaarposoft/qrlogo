@@ -104,7 +104,7 @@ pub fn encode(text: &[u8], version: u8, mode: Mode, ec: ErrorCorrectionLevel) ->
     }
 
     // Alignment
-    set_alignment_patterns(&mut matrix, version, n_modules);
+    set_alignment_patterns(&mut matrix, version);
 
     // Masks
     let mask = create_mask_patterns();
@@ -182,7 +182,7 @@ fn set_version(matrix: &mut Matrix, version: u8, n_modules: usize) {
 
 
 //  ************************************************************
-fn set_alignment_patterns(matrix: &mut Matrix, version: u8, n_modules: usize) {
+fn set_alignment_patterns(matrix: &mut Matrix, version: u8) {
     for (x, y) in qr::AlignmentPatternIterator::new(version) {
         let x = x - 2;
         let y = y - 2;
