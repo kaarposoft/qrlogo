@@ -25,6 +25,7 @@
 
 use super::logging;
 use super::qr;
+use super::qr::{BitSeq};
 use super::reedsolomon::ReedSolomonEncoder;
 use super::web_sys_fallback::CanvasRenderingContext2D;
 use super::{ErrorCorrectionLevel, Mode};
@@ -113,10 +114,10 @@ pub fn encode(text: &[u8], version: u8, mode: Mode, ec: ErrorCorrectionLevel) ->
 
     // Text
     let mut text_bits = BitSeq::new(n_data_codewords);
-    text_bits.append(mode as u16, 4);
+    text_bits.append_bits(mode as u16, 4);
     let n_count_bits = qr::n_count_bits(version, mode) as usize;
     let count = text.len() as u16;
-    text_bits.append(count as u16, n_count_bits);
+    text_bits.append_bits(count as u16, n_count_bits);
     match mode {
         Mode::Numeric => encode_numeric(&mut text_bits, text),
         Mode::AlphaNumeric => encode_alpha_numeric(&mut text_bits, text),
@@ -245,15 +246,15 @@ fn encode_numeric(bits: &mut BitSeq, text: &[u8]) {
     if n > 2 {
         for i in (0..n - 2).step_by(3) {
             let val = 100 * (text[i] as u16 - 48) + 10 * (text[i + 1] as u16 - 48) + (text[i + 2] as u16 - 48);
-            bits.append(val, 10);
+            bits.append_bits(val, 10);
         }
     }
     if n % 3 == 1 {
         let val = text[n - 1] as u16 - 48;
-        bits.append(val, 4);
+        bits.append_bits(val, 4);
     } else if n % 3 == 2 {
         let val = 10 * (text[n - 2] as u16 - 48) + (text[n - 1] as u16 - 48);
-        bits.append(val, 7);
+        bits.append_bits(val, 7);
     }
 }
 
@@ -265,18 +266,18 @@ fn encode_alpha_numeric(bits: &mut BitSeq, text: &[u8]) {
     }
     for i in (0..n - 1).step_by(2) {
         let val = 45 * (qr::ascii_to_alnum(text[i]) as u16) + (qr::ascii_to_alnum(text[i + 1]) as u16);
-        bits.append(val, 11);
+        bits.append_bits(val, 11);
     }
     if n % 2 == 1 {
         let val = qr::ascii_to_alnum(text[n - 1]) as u16;
-        bits.append(val, 6);
+        bits.append_bits(val, 6);
     }
 }
 
 //  ************************************************************
 fn encode_eight_bit(bits: &mut BitSeq, text: &[u8]) {
     for ch in text {
-        bits.append(*ch as u16, 8);
+        bits.append_bits(*ch as u16, 8);
     }
 }
 
@@ -718,117 +719,6 @@ impl Matrix {
     }
     pub fn get_selected(&self, x: usize, y: usize) -> bool {
         (self.data[x + y * self.dim] & (1 << self.selected)) > 0
-    }
-}
-
-
-//  ************************************************************
-/// Sequence of bits stored in a byte vector
-//  ************************************************************
-
-struct BitSeq {
-    data: Vec<u8>,
-    idx: usize,
-}
-
-//  ************************************************************
-impl BitSeq {
-    //  ************************************************************
-    pub fn new(n_bytes: usize) -> Self {
-        BitSeq { data: vec![0; n_bytes], idx: 0 }
-    }
-
-    //  ************************************************************
-    pub fn set(&mut self, bits: u16, idx: usize, n_bits: usize) {
-        let len = self.data.len();
-        insane!("BitSeq::set: data.len()={} bits={} idx={} n_bits={}", len, bits, idx, n_bits);
-        let bidx = self.idx / 8;
-        let shift = 24 - (idx & 7) - n_bits;
-        let mut v = (bits as u32) << shift;
-        if len > bidx + 2 {
-            self.data[bidx + 2] = (v & 0x00FF) as u8;
-        }
-        v = v >> 8;
-        if len > bidx + 1 {
-            self.data[bidx + 1] = (v & 0x00FF) as u8;
-        }
-        v = v >> 8;
-        self.data[bidx] += (v & 0x00FF) as u8;
-    }
-
-    //  ************************************************************
-    pub fn append(&mut self, bits: u16, n_bits: usize) {
-        let idx = self.idx;
-        self.set(bits, idx, n_bits);
-        self.idx += n_bits;
-    }
-
-    //  ************************************************************
-    pub fn set_u8(&mut self, byte: u8, byte_idx: usize) {
-        self.data[byte_idx] = byte;
-    }
-
-    //  ************************************************************
-    pub fn skip(&mut self, n_bits: usize) -> usize {
-        let i = self.idx;
-        self.idx += n_bits;
-        i
-    }
-
-    //  ************************************************************
-    pub fn into_bytes(self) -> Vec<u8> {
-        self.data
-    }
-
-    //  ************************************************************
-    pub fn next_byte_idx(&self) -> usize {
-        (self.idx - 1) / 8 + 1
-    }
-}
-
-
-//  ************************************************************
-impl From<Vec<u8>> for BitSeq {
-    fn from(data: Vec<u8>) -> Self {
-        BitSeq { data, idx: 0 }
-    }
-}
-
-//  ************************************************************
-impl<'a> IntoIterator for &'a BitSeq {
-    type Item = bool;
-    type IntoIter = BitSeqIterator<'a>;
-    fn into_iter(self) -> Self::IntoIter {
-        insane!("BitSeq::IntoIterator: {:?}", self.data);
-        BitSeqIterator { bits: &self.data, byte_idx: 0, bit_mask: 1 << 7 }
-    }
-}
-
-
-//  ************************************************************
-/// Iterator over bits in a `BitSeq`
-//  ************************************************************
-
-struct BitSeqIterator<'a> {
-    bits: &'a Vec<u8>,
-    byte_idx: usize,
-    bit_mask: u8,
-}
-
-//  ************************************************************
-impl<'a> Iterator for BitSeqIterator<'a> {
-    type Item = bool;
-    fn next(&mut self) -> Option<bool> {
-        if self.bit_mask == 0 {
-            self.byte_idx += 1;
-            if self.byte_idx >= self.bits.len() {
-                return None;
-            }
-            self.bit_mask = 1 << 7;
-        }
-        let res = Some(self.bits[self.byte_idx] & self.bit_mask > 0);
-        self.bit_mask >>= 1;
-        res
     }
 }
 
