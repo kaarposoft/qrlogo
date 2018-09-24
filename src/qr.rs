@@ -29,6 +29,8 @@
 //! * [ISO 18004:2005](http://www.arscreatio.com/repositorio/images/n_23/SC031-N-1915-18004Text.pdf)
 //  ************************************************************
 
+#![allow(clippy::collapsible_if)]
+
 use super::logging;
 use super::{ErrorCorrectionLevel, Mode};
 
@@ -457,10 +459,10 @@ pub fn format_bit_positions(n: usize, n_modules: usize) -> [(usize, usize); 2] {
         ((0, 8), (8, -1)),
     ][n];
     if x1 < 0 {
-        x1 = n_modules + x1;
+        x1 += n_modules;
     }
     if y1 < 0 {
-        y1 = n_modules + y1;
+        y1 += n_modules;
     }
     [(x0, y0), (x1 as usize, y1 as usize)]
 }
@@ -1281,15 +1283,15 @@ impl BitSeq {
         insane!("BitSeq::set: data.len()={} bits={} idx={} n_bits={}", len, bits, idx, n_bits);
         let bidx = self.idx / 8;
         let shift = 24 - (idx & 7) - n_bits;
-        let mut v = (bits as u32) << shift;
+        let mut v = (u32::from(bits)) << shift;
         if len > bidx + 2 {
             self.data[bidx + 2] = (v & 0x00FF) as u8;
         }
-        v = v >> 8;
+        v >>= 8;
         if len > bidx + 1 {
             self.data[bidx + 1] = (v & 0x00FF) as u8;
         }
-        v = v >> 8;
+        v >>= 8;
         self.data[bidx] += (v & 0x00FF) as u8;
     }
 
