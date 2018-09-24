@@ -300,8 +300,8 @@ impl Mul for G {
         if self.0 == 0 || other.0 == 0 {
             return G(0);
         }
-        let i: u16 = GF285_LOG[self.0 as usize].0 as u16;
-        let j: u16 = GF285_LOG[other.0 as usize].0 as u16;
+        let i = u16::from(GF285_LOG[self.0 as usize].0);
+        let j = u16::from(GF285_LOG[other.0 as usize].0);
         GF285_EXP[((i + j) % 255) as usize]
     }
 }
