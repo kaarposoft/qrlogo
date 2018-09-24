@@ -635,9 +635,10 @@ impl PenaltyPattern {
     //  ************************************************************
     pub fn push(&mut self, dark: bool, n: u8) -> bool {
         self.cnt += 1;
-        match dark {
-            true => self.push_dark(n),
-            false => self.push_light(n),
+        if dark {
+            self.push_dark(n)
+        } else {
+            self.push_light(n)
         }
     }
 
