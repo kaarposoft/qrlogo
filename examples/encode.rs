@@ -18,9 +18,9 @@
 
     ************************************************************ */
 
-extern crate qrlogo_wasm;
 extern crate clap;
 extern crate image;
+extern crate qrlogo_wasm;
 
 use clap::{App, Arg, Error, ErrorKind};
 use qrlogo_wasm::logging;
@@ -31,7 +31,7 @@ use std::io::{self, Write};
 
 //  ************************************************************
 
-const ABOUT: &str= "Encode data into a QR Code
+const ABOUT: &str = "Encode data into a QR Code
 
 The <DATA> provided is encoded into a QR Code.
 
@@ -66,7 +66,7 @@ fn main() {
                 .short("d")
                 .long("debug")
                 .help("Specify -d/--debug one or more times to increase debug level")
-                .multiple(true)
+                .multiple(true),
         ).arg(
             Arg::with_name(ARG_VERSION)
                 .short("v")
@@ -80,14 +80,14 @@ fn main() {
                 .long("mode")
                 .help("Encoding mode (8bit, Alphanumeric, Numeric)")
                 .value_name(ARG_MODE)
-                .possible_values(&["8", "A", "a", "N", "n"])
+                .possible_values(&["8", "A", "a", "N", "n"]),
         ).arg(
             Arg::with_name(ARG_EC)
                 .short("e")
                 .long("error-correction-level")
                 .help("Error correction level")
                 .value_name(ARG_EC)
-                .possible_values(&["L", "l", "M", "m", "Q", "q", "H", "h"])
+                .possible_values(&["L", "l", "M", "m", "Q", "q", "H", "h"]),
         ).arg(Arg::with_name(ARG_ANSI).short("a").long("ansi").help("Output ansi control codes (when encoding to stdout)"))
         .arg(
             Arg::with_name(ARG_PPM)
