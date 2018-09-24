@@ -25,7 +25,7 @@
 
 use super::logging;
 use super::qr;
-use super::qr::{BitSeq};
+use super::qr::BitSeq;
 use super::reedsolomon::ReedSolomonEncoder;
 use super::web_sys_fallback::CanvasRenderingContext2D;
 use super::{ErrorCorrectionLevel, Mode};
