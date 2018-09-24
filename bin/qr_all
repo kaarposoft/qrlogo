@@ -17,3 +17,8 @@ for CMD in qr_init qr_doc qr_build qr_build_release qr_test_release; do
     printf "\n\n==> ==> ===> ===> %s\n" "${CMD}"
     time "./${CMD}"
 done
+
+printf "\n>>> >>> %s\n" "running example"
+. ../cfg/upstream.sh
+time cargo +"${RUST_TOOLCHAIN}" run --example encode -- -dd kaarposoft
+time cargo +"${RUST_TOOLCHAIN}" run --release --example encode -- -a kaarposoft

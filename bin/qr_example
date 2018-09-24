@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# ============================================================
+# run a QR Logo example
+# ============================================================
+
+set -o nounset
+set -o errexit
+
+PGM="$(basename $0)"
+cd "$(dirname "$0")/.."
+
+
+# ============================================================
+
+. cfg/upstream.sh
+
+
+# ============================================================
+
+if [ "${PGM}" = "qr_example_release" ]; then
+    MODE="release"
+    CARGO_OPT="--release"
+    TARGET_DIR="release"
+else
+    MODE="debug"
+    CARGO_OPT=""
+    TARGET_DIR="debug"
+fi
+printf "\n>>> >>> mode: %s\n" "${MODE}"
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "running example"
+[ $# -ge 1 ] || { printf "\n*** *** %s\n" "please specify name of example"; exit 1; }
+EXAMPLE=$1
+shift
+cargo +"${RUST_TOOLCHAIN}" run ${CARGO_OPT} --example "${EXAMPLE}" -- "$@"
+

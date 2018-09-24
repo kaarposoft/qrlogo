@@ -4,7 +4,9 @@ version = "0.1.0"
 authors = ["Henrik <henrik@kaarposoft.dk>"]
 
 [lib]
-crate-type = ["cdylib"]
+# cdylib is for the generated Web Assembly (WASM) code
+# rlib if for our native examples
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 #
@@ -16,6 +18,10 @@ crate-type = ["cdylib"]
 #
 wasm-bindgen = "=0.2.21"
 js-sys = "=0.2.6"
+
+[dev-dependencies]
+image = "0.20.0"
+clap = "2.32.0"
 
 # The release profile, used for `cargo build --release`.
 [profile.release]
