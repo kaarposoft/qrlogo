@@ -54,6 +54,12 @@ rustup component add rustfmt-preview --toolchain "${RUST_TOOLCHAIN}"
 
 # ============================================================
 
+printf "\n>>> >>> %s\n" "rustup install clippy-preview"
+rustup component add clippy-preview --toolchain "${RUST_TOOLCHAIN}"
+
+
+# ============================================================
+
 printf "\n>>> >>> %s\n" "wasm-bindgen-cli"
 if cargo +"${RUST_TOOLCHAIN}" install --list | grep -Eq "${WASM_BINDGEN_VERSION_STRING}" 2>/dev/null; then
 	printf "\n>>> >>> %s\n" "wasm-bindgen-cli ${WASM_BINDGEN} already installed"

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# ============================================================
+# qr_clippy
+# get hints about problematic code
+# ============================================================
+# Prerequisites:
+# Run qr_init
+# ============================================================
+
+set -o nounset
+set -o errexit
+
+PGM="$(basename $0)"
+cd "$(dirname "$0")/.."
+
+
+# ============================================================
+
+. cfg/upstream.sh
+
+
+# ============================================================
+
+printf "\n>>> >>> %s\n" "clippy"
+rustup run "${RUST_TOOLCHAIN}" cargo-clippy --verbose #-- -D warnings
+printf "\n>>> >>> %s\n" "done"

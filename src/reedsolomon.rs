@@ -202,6 +202,7 @@ impl IndexMut<usize> for Poly {
 ///  polynomial multiplication
 //  ************************************************************
 
+#[allow(clippy::suspicious_arithmetic_impl)]
 impl<'a> Mul for &'a Poly {
     type Output = Poly;
 
@@ -324,6 +325,8 @@ impl AddAssign for G {
 }
 
 //  ************************************************************
+
+#[allow(clippy::suspicious_arithmetic_impl)]
 impl Add for G {
     type Output = G;
     fn add(self, other: G) -> G {
