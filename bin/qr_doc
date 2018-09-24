@@ -36,5 +36,5 @@ printf "\n>>> >>> mode: %s\n" "${MODE}"
 
 printf "\n>>> >>> %s\n" "documenting"
 cargo +"${RUST_TOOLCHAIN}" doc --no-deps --document-private-items
-printf "\n>>> >>> documentation should now be in: %s\n" "file://${DIR}/target/doc/qrlogo-wasm/index.html"
+printf "\n>>> >>> documentation should now be in: %s\n" "file://${DIR}/target/doc/qrlogo_wasm/index.html"
 printf "\n>>> >>> %s\n" "done"
