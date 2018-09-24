@@ -176,7 +176,8 @@ impl Index<u8> for Poly {
 
 //  ************************************************************
 impl IndexMut<u8> for Poly {
-    fn index_mut<'a>(&'a mut self, idx: u8) -> &'a mut G {
+    //fn index_mut<'a>(&'a mut self, idx: u8) -> &'a mut G {
+    fn index_mut(&mut self, idx: u8) -> &mut G {
         &mut self.c[idx as usize]
     }
 }
@@ -192,7 +193,8 @@ impl Index<usize> for Poly {
 
 //  ************************************************************
 impl IndexMut<usize> for Poly {
-    fn index_mut<'a>(&'a mut self, idx: usize) -> &'a mut G {
+    //fn index_mut<'a>(&'a mut self, idx: usize) -> &'a mut G {
+    fn index_mut(&mut self, idx: usize) -> &mut G {
         &mut self.c[idx]
     }
 }
