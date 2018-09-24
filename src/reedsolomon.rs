@@ -63,8 +63,8 @@ impl ReedSolomonEncoder {
         trace!("ReedSolomonEncoder::encode begin; n={}", n);
         let mut lfsr = [G(0); 68 + 1];
 
-        for i in 0..msg.len() {
-            let b = G(msg[i]) + lfsr[n - 1];
+        for m in msg.iter() {
+            let b = G(*m) + lfsr[n - 1];
             let mut j = n;
             while j > 1 {
                 j -= 1;
@@ -176,7 +176,6 @@ impl Index<u8> for Poly {
 
 //  ************************************************************
 impl IndexMut<u8> for Poly {
-    //fn index_mut<'a>(&'a mut self, idx: u8) -> &'a mut G {
     fn index_mut(&mut self, idx: u8) -> &mut G {
         &mut self.c[idx as usize]
     }
@@ -193,7 +192,6 @@ impl Index<usize> for Poly {
 
 //  ************************************************************
 impl IndexMut<usize> for Poly {
-    //fn index_mut<'a>(&'a mut self, idx: usize) -> &'a mut G {
     fn index_mut(&mut self, idx: usize) -> &mut G {
         &mut self.c[idx]
     }
