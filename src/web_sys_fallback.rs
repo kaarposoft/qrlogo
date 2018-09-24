@@ -31,6 +31,7 @@
 //  ************************************************************
 
 
+#![allow(clippy::drop_ref)]
 extern crate wasm_bindgen;
 use wasm_bindgen::prelude::*;
 
@@ -52,6 +53,16 @@ extern "C" {
 
     #[wasm_bindgen(constructor)]
     pub fn new(arr: &Uint8ClampedArray, width: u32, height: u32) -> ImageData;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn width(this: &ImageData) -> u32;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn height(this: &ImageData) -> u32;
+
+    #[wasm_bindgen(method, getter)]
+    pub fn data(this: &ImageData) -> Uint8ClampedArray;
+
 }
 
 
@@ -72,6 +83,9 @@ extern "C" {
 
     #[wasm_bindgen(constructor)]
     pub fn new(arr: &[u8]) -> Uint8ClampedArray;
+
+    #[wasm_bindgen(method, structural, indexing_getter)]
+    pub fn get(this: &Uint8ClampedArray, prop: u32) -> u8;
 }
 
 
