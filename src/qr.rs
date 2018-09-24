@@ -1183,7 +1183,9 @@ impl SnakeDataIterator {
             self.mark_rect(x, y, 5, 5);
         }
 
-        if false { self.log_mark(); }
+        if false {
+            self.log_mark();
+        }
     }
 
     fn log_mark(&self) {
@@ -1315,7 +1317,7 @@ impl BitSeq {
         if set {
             let byte = self.idx / 8;
             let bit = self.idx % 8;
-            let new = 1 << (7-bit);
+            let new = 1 << (7 - bit);
             let old = self.data[byte];
             let res = old | new;
             insane!("push_bit len={} byte={} bit={} new={} old={} res={}", self.data.len(), byte, bit, new, old, res);
@@ -1342,7 +1344,6 @@ impl From<Vec<u8>> for BitSeq {
         BitSeq { data, idx: 0 }
     }
 }
-
 
 
 //  ************************************************************
