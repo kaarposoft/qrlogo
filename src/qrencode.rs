@@ -23,6 +23,11 @@
 //  ************************************************************
 
 
+#![allow(clippy::new_without_default_derive)]
+#![allow(clippy::needless_range_loop)]
+#![allow(clippy::int_plus_one)]
+#![allow(clippy::collapsible_if)]
+
 use super::logging;
 use super::qr;
 use super::qr::BitSeq;
@@ -245,15 +250,15 @@ fn encode_numeric(bits: &mut BitSeq, text: &[u8]) {
     }
     if n > 2 {
         for i in (0..n - 2).step_by(3) {
-            let val = 100 * (text[i] as u16 - 48) + 10 * (text[i + 1] as u16 - 48) + (text[i + 2] as u16 - 48);
+            let val = 100 * (u16::from(text[i]) - 48) + 10 * (u16::from(text[i + 1]) - 48) + (u16::from(text[i + 2]) - 48);
             bits.append_bits(val, 10);
         }
     }
     if n % 3 == 1 {
-        let val = text[n - 1] as u16 - 48;
+        let val = u16::from(text[n - 1]) - 48;
         bits.append_bits(val, 4);
     } else if n % 3 == 2 {
-        let val = 10 * (text[n - 2] as u16 - 48) + (text[n - 1] as u16 - 48);
+        let val = 10 * (u16::from(text[n - 2]) - 48) + (u16::from(text[n - 1]) - 48);
         bits.append_bits(val, 7);
     }
 }
@@ -265,19 +270,19 @@ fn encode_alpha_numeric(bits: &mut BitSeq, text: &[u8]) {
         return;
     }
     for i in (0..n - 1).step_by(2) {
-        let val = 45 * (qr::ascii_to_alnum(text[i]) as u16) + (qr::ascii_to_alnum(text[i + 1]) as u16);
+        let val = 45 * u16::from(qr::ascii_to_alnum(text[i])) + u16::from(qr::ascii_to_alnum(text[i + 1]));
         bits.append_bits(val, 11);
     }
     if n % 2 == 1 {
-        let val = qr::ascii_to_alnum(text[n - 1]) as u16;
-        bits.append_bits(val, 6);
+        let val = qr::ascii_to_alnum(text[n - 1]);
+        bits.append_bits(u16::from(val), 6);
     }
 }
 
 //  ************************************************************
 fn encode_eight_bit(bits: &mut BitSeq, text: &[u8]) {
     for ch in text {
-        bits.append_bits(*ch as u16, 8);
+        bits.append_bits(u16::from(*ch), 8);
     }
 }
 
