@@ -79,6 +79,17 @@ pub fn shall_log(lvl: usize) -> bool {
 }
 
 
+//  ************************************************************
+/// True if logs at level `lvl` should be logged
+//  ************************************************************
+
+#[macro_export]
+macro_rules! log_enabled {
+    ($lvl:expr) => {{
+        (logging::MAX_LOG_LEVEL>=$lvl) && logging::shall_log($lvl)
+    }};
+}
+
 /* ============================================================
  * Logging in browser
  * ============================================================
