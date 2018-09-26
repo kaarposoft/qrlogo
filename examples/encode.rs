@@ -237,29 +237,29 @@ fn write_to_path(n_modules: usize, matrix: &Matrix, ppm: usize, path: &str) {
     let light = 240;
     let border = 4;
     let mut img_data = Vec::with_capacity((n + 2 * border) * ppm * (n + 2 * border) * ppm);
-    for _x in 0..ppm * border {
-        for _y in 0..ppm * (n + 2 * border) {
+    for _y in 0..ppm * border {
+        for _x in 0..ppm * (n + 2 * border) {
             img_data.push(light);
         }
     }
-    for x in 0..n {
+    for y in 0..n {
         for _ in 1..=ppm {
-            for _y in 0..ppm * border {
+            for _x in 0..ppm * border {
                 img_data.push(light);
             }
-            for y in 0..n {
+            for x in 0..n {
                 let gray = if matrix.get_selected(x, y) { dark } else { light };
                 for _ in 1..=ppm {
                     img_data.push(gray);
                 }
             }
-            for _y in 0..ppm * border {
+            for _x in 0..ppm * border {
                 img_data.push(light);
             }
         }
     }
-    for _x in 0..ppm * border {
-        for _y in 0..ppm * (n + 2 * border) {
+    for _y in 0..ppm * border {
+        for _x in 0..ppm * (n + 2 * border) {
             img_data.push(light);
         }
     }
