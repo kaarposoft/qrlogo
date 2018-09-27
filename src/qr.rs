@@ -1005,9 +1005,8 @@ mod qr {
 
     pub fn version_from_length_calc(len: usize, mode: Mode, ec: ErrorCorrectionLevel) -> Option<u8> {
         let len = len as u16;
-        let mut dc = 0;
         for v in VERSION_MIN..=VERSION_MAX {
-            dc = data_capacity(v, mode, ec);
+            let dc = data_capacity(v, mode, ec);
             insane!("version_from_length version={} mode={:?} ec={:?} data_capacity={}", v, mode, ec, dc);
             if dc >= len {
                 return Some(v);
