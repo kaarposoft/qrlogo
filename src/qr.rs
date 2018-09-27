@@ -1292,6 +1292,27 @@ impl BitSeq {
         BitSeq { data: vec![0; n_bytes], idx: 0 }
     }
 
+
+    //  ************************************************************
+    pub fn get_bits(&self, idx: usize, n_bits: usize) -> u16 {
+        let len = self.data.len();
+        let shift = 24 - (idx & 7) - n_bits;
+        let mask = (1 << n_bits) - 1;
+        let bidx = idx / 8;
+        let mut res = 0u32;
+        //let tmp = self.data[bidx] as u16;
+        res += (self.data[bidx] as u32) << 16;
+        //res += tmp << 16;
+        //res += self.data[bidx] << 16;
+        if len > bidx + 1 {
+            res += (self.data[bidx + 1] as u32) << 8;
+            if len > bidx + 2 {
+                res += self.data[bidx + 2] as u32;
+            }
+        }
+        ((res >> shift) & mask) as u16
+    }
+
     //  ************************************************************
     pub fn set_bits(&mut self, bits: u16, idx: usize, n_bits: usize) {
         let len = self.data.len();
