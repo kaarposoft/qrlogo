@@ -86,7 +86,7 @@ pub fn shall_log(lvl: usize) -> bool {
 #[macro_export]
 macro_rules! log_enabled {
     ($lvl:expr) => {{
-        (logging::MAX_LOG_LEVEL>=$lvl) && logging::shall_log($lvl)
+        (logging::MAX_LOG_LEVEL >= $lvl) && logging::shall_log($lvl)
     }};
 }
 

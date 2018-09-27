@@ -1130,14 +1130,15 @@ mod qr {
     #[test]
     fn test_snake_data_iterator_len() {
         for version in 1..=40 {
-            let expected_len = 8*n_codewords(version) as usize + n_remainder_bits(version);
+            let expected_len = 8 * n_codewords(version) as usize + n_remainder_bits(version);
             let snake_len = SnakeDataIterator::new(version).count();
             assert!(
                 snake_len == expected_len,
                 "INCONSISTENT SNAKE DATA ITERATOR: version={} expected={}, got={}",
                 version,
                 expected_len,
-                snake_len);
+                snake_len
+            );
         }
     }
 
