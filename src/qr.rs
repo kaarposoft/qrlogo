@@ -1318,7 +1318,7 @@ impl BitSeq {
     pub fn set_bits(&mut self, bits: u16, idx: usize, n_bits: usize) {
         let len = self.data.len();
         insane!("BitSeq::set: data.len()={} bits={} idx={} n_bits={}", len, bits, idx, n_bits);
-        let bidx = self.idx / 8;
+        let bidx = idx / 8;
         let shift = 24 - (idx & 7) - n_bits;
         let mut v = (u32::from(bits)) << shift;
         if len > bidx + 2 {
