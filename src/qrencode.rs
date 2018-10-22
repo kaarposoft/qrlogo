@@ -131,7 +131,7 @@ pub fn encode(text: &[u8], version: u8, mode: Mode, ec: ErrorCorrectionLevel) ->
     set_padding(&mut text_bits, version, ec);
 
     let text_bytes = text_bits.into_bytes();
-    let data_bytes = add_error_correction(text_bytes, version, ec);
+    let data_bytes = add_error_correction(&text_bytes, version, ec);
     debug!("encode: data_bytes: len={} {:X?}", data_bytes.len(), data_bytes);
     let data_bits = BitSeq::from(data_bytes);
 
@@ -317,7 +317,7 @@ fn create_mask_patterns() -> Matrix {
 }
 
 //  ************************************************************
-fn add_error_correction(text_bytes: Vec<u8>, version: u8, ec: ErrorCorrectionLevel) -> Vec<u8> {
+fn add_error_correction(text_bytes: &[u8], version: u8, ec: ErrorCorrectionLevel) -> Vec<u8> {
     debug!("add_error_correction: text_bytes.len={} version={} ec={:?}", text_bytes.len(), version, ec);
     trace!("add_error_correction: text_bytes={:?}", text_bytes);
     let [ecb1, ecb2] = qr::ec_blocks(version, ec);
@@ -693,7 +693,7 @@ impl PenaltyPattern {
 /// A specific bit may be designated as `selected`
 //  ************************************************************
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Matrix {
     dim: usize,
     selected: u8,
