@@ -1301,13 +1301,13 @@ impl BitSeq {
         let bidx = idx / 8;
         let mut res = 0u32;
         //let tmp = self.data[bidx] as u16;
-        res += (self.data[bidx] as u32) << 16;
+        res += u32::from(self.data[bidx]) << 16;
         //res += tmp << 16;
         //res += self.data[bidx] << 16;
         if len > bidx + 1 {
-            res += (self.data[bidx + 1] as u32) << 8;
+            res += u32::from(self.data[bidx + 1]) << 8;
             if len > bidx + 2 {
-                res += self.data[bidx + 2] as u32;
+                res += u32::from(self.data[bidx + 2]);
             }
         }
         ((res >> shift) & mask) as u16
