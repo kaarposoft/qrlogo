@@ -16,12 +16,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 
-    ************************************************************
-
-    Parts of the Reed Solomon decoding algorithms have been inspired by
-    http://rscode.sourceforge.net
-    Original version Copyright (C) by Henry Minsky
-
     ************************************************************ */
 
 
@@ -31,9 +25,242 @@
 
 use std::fmt;
 use std::fmt::Debug;
-use std::ops::{Add, AddAssign, Index, IndexMut, Mul, Not};
+use std::ops::{Add, AddAssign, Div, Index, IndexMut, Mul, MulAssign, Not, ShlAssign, Sub, SubAssign};
 
 use super::logging;
+
+
+//  ************************************************************
+/// Reed Solomon decoding
+///
+/// References:
+/// - <https://content.sakai.rutgers.edu/access/content/user/ak892/Reed-SolomonProjectReport.pdf>
+/// - <https://crypto.stanford.edu/~mironov/cs359/massey.pdf>
+//  ************************************************************
+
+pub mod reed_solomon_decoder {
+    use super::logging;
+    use super::Poly;
+    use super::G;
+
+    //  ************************************************************
+    /// Decode message `msg` with parity / error correction `parity`
+    ///
+    /// The `msg` passed in will be corrected if possible, and the `grade` 1-4 returned.
+    /// If correction failed, an error message will be returned
+    //  ************************************************************
+
+    pub fn correct(msg: &mut [u8], parity: &[u8]) -> Result<u32, String> {
+        let n_parity_bytes = parity.len();
+        let n_error_correction_capability = n_parity_bytes / 2;
+        trace!("ReedSolomonDecoder: msg.len={} + parity_len={} = {}", msg.len(), parity.len(), msg.len() + parity.len());
+        match syndromes(msg, parity) {
+            None => {
+                debug!("ReedSolomonDecoder: no errors found");
+                Ok(4)
+            }
+            Some(syndromes) => {
+                trace!("ReedSolomonDecoder: syndromes={:?}", syndromes);
+                let error_poly = berlekamp_massey(&syndromes, n_parity_bytes);
+                let n_errors = error_poly.degree();
+                insane!("ReedSolomonDecoder: n_parity_bytes={} n_errors={} error_poly={:?}", parity.len(), n_errors, error_poly);
+                if n_errors > n_error_correction_capability {
+                    return Err(format!(
+                        "ReedSolomon failed: Too many errors. found {}; can only correct up to {}",
+                        n_errors, n_error_correction_capability
+                    ));
+                }
+                let n_remaining_error_correction_capability = n_error_correction_capability - n_errors;
+                let grade = if n_remaining_error_correction_capability > 2 {
+                    3
+                } else if n_remaining_error_correction_capability > 1 {
+                    2
+                } else {
+                    1
+                };
+                insane!("ReedSolomonDecoder: n_errors={} n_error_correction_capability={} n_remaining_error_correction_capability={} grade={}", n_errors, n_error_correction_capability, n_remaining_error_correction_capability, grade);
+
+                let roots = error_poly.find_roots();
+                let n_roots = roots.len();
+                trace!("ReedSolomonDecoder: n_roots={} roots={:?}", n_roots, roots);
+                if n_roots != n_errors {
+                    return Err(format!("ReedSolomon failed: Wrong number of roots: got {}; expected {}", n_roots, n_errors));
+                }
+
+                let error_locators: Vec<G> = roots.iter().map(|r| r.log_inv()).collect();
+                trace!("ReedSolomonDecoder: error_locators={:?}", error_locators);
+
+                let mut error_eval_poly: Poly = &error_poly * &syndromes;
+                error_eval_poly.truncate(parity.len() / 2 - 1);
+                trace!("ReedSolomonDecoder: error_eval_poly={:?}", error_eval_poly);
+                let error_values = forney(&roots, &error_poly, &error_eval_poly);
+                trace!("ReedSolomonDecoder: error_values={:?}=0x{:2X?}", error_values, error_values);
+                let error_locators: Vec<G> = roots.iter().map(|r| r.log_inv()).collect();
+                trace!("ReedSolomonDecoder: error_locators={:?}", error_locators);
+                for i in 0..error_values.len() {
+                    let loc = error_locators[i].0 as usize;
+                    if loc > msg.len() + parity.len() - 1 {
+                        trace!("ReedSolomonDecoder: Correction loc={} is out of scope", loc);
+                    } else {
+                        let pos = msg.len() + parity.len() - loc - 1;
+                        trace!(
+                            "ReedSolomonDecoder: error[{:2}] loc={:3} pos={:3} value=0x{:02X}=0b_{:08b} in_data={}",
+                            i,
+                            loc,
+                            pos,
+                            error_values[i].0,
+                            error_values[i].0,
+                            pos < msg.len()
+                        );
+                        if pos < msg.len() {
+                            msg[pos] ^= error_values[i].0;
+                        }
+                    }
+                }
+
+                Ok(grade)
+            }
+        }
+    }
+
+
+    //  ************************************************************
+    /// Calculate the syndromes from `msg` with parity / error correction `parity`
+    ///
+    /// The syndromes represent the errors in the received message
+    ///
+    /// If no syndromes are found the message is perfect, and `None` is returned.
+    /// Otherwise the syndromes are returned.
+    //  ************************************************************
+
+    fn syndromes(msg: &[u8], parity: &[u8]) -> Option<Poly> {
+        let mut zero = true;
+        let mut syn = Vec::with_capacity(parity.len());
+        let n = parity.len() as u8;
+        for j in 0..n {
+            let exp = G(j).exp();
+            let mut sum = G(0);
+            for b in msg.iter() {
+                sum = G(*b) + exp * sum;
+            }
+            for b in parity.iter() {
+                sum = G(*b) + exp * sum;
+            }
+            if sum != G(0) {
+                zero = false;
+            }
+            syn.push(sum);
+        }
+        if zero {
+            None
+        } else {
+            Some(syn.into())
+        }
+    }
+
+
+    //  ************************************************************
+    /// Calculate connection polynomial using the Berlekamp-Massey algorithm
+    ///
+    /// The connection polynomial represents the difference between the original message and the
+    /// received message.
+    ///
+    /// References:
+    /// - <https://content.sakai.rutgers.edu/access/content/user/ak892/Reed-SolomonProjectReport.pdf>
+    /// - <https://crypto.stanford.edu/~mironov/cs359/massey.pdf>
+    //  ************************************************************
+
+    pub fn berlekamp_massey(syndromes: &Poly, n_max: usize) -> Poly {
+        let mut connection_poly = Poly::new_one(n_max);
+        let mut prev_connection_poly = Poly::new_one(n_max);
+        let mut n_errors = 0;
+        let mut m = 1;
+        let mut prev_d = G(1);
+        for n in 0..n_max {
+            let d = descrepancy(&connection_poly, syndromes, n_errors, n);
+            insane!(
+                "berlekamp_massey: n={} n_errors={} m={} d={:?} prev_d={:?} complex_branch={}",
+                n,
+                n_errors,
+                m,
+                d,
+                prev_d,
+                (d != G(0)) && (2 * n_errors <= n)
+            );
+            if d == G(0) {
+                m += 1;
+            } else if 2 * n_errors <= n {
+                let tmp = connection_poly.clone();
+                prev_connection_poly <<= m;
+                prev_connection_poly *= d / prev_d;
+                connection_poly -= &prev_connection_poly;
+                prev_connection_poly = tmp;
+                prev_d = d;
+                n_errors = (n + 1) - n_errors;
+                m = 1;
+            } else {
+                let mut tmp = prev_connection_poly.clone();
+                tmp <<= m;
+                tmp *= d / prev_d;
+                connection_poly -= &tmp;
+                m += 1;
+            }
+            insane!("berlekamp_massey: prev_connection_poly={:?}", prev_connection_poly);
+            insane!("berlekamp_massey: connection_poly={:?}", connection_poly);
+        }
+        connection_poly.simplify();
+        if n_errors != connection_poly.degree() {
+            insane!("!!!!!!!!!!!!!!!! n_errors={} connection_poly.degree={}", n_errors, connection_poly.degree()); // TODO
+            let dd = descrepancy(&connection_poly, syndromes, connection_poly.degree(), n_max - 1);
+            if dd != G(0) {
+                insane!("!!!!!!!!!!!!!!!! still descrepancy: {:?}", dd); // TODO
+            }
+        }
+        connection_poly
+    }
+
+
+    //  ************************************************************
+    /// Calculate the difference between the connection polynomial and the syndromes
+    //  ************************************************************
+
+    pub fn descrepancy(connection_poly: &Poly, syndromes: &Poly, n_errors: usize, n: usize) -> G {
+        let mut d = syndromes[n];
+        for i in 1..=n_errors {
+            d += connection_poly[i] * syndromes[n - i];
+        }
+        d
+    }
+
+
+    //  ************************************************************
+    /// Calculate the position of each error
+    ///
+    /// Given:
+    /// - `roots`: the roots of the connection polonymial
+    /// - `error_poly`: the difference between the connection poly and the syndromes
+    /// - `error_eval_poly`: evaluating to the difference between the connection poly and the syndromes
+    ///
+    /// Return the errors at each position
+    ///
+    /// Reference:
+    /// - <https://en.wikipedia.org/wiki/Forney_algorithm>
+    //  ************************************************************
+
+    pub fn forney(roots: &[G], error_poly: &Poly, error_eval_poly: &Poly) -> Vec<G> {
+        let mut error_values = Vec::with_capacity(roots.len());
+        let derivative = error_poly.derivative();
+        trace!("ReedSolomon:forney: derivative={:?}", derivative);
+        for &r in roots {
+            let mut numerator = error_eval_poly.eval(r);
+            let mut denominator = derivative.eval(r);
+            let error_value = (!r) * (numerator / denominator);
+            insane!("ReedSolomon:forney: r={:?} !r={:?} num={:?} den={:?} err={:?}", r, !r, numerator, denominator, error_value);
+            error_values.push(error_value);
+        }
+        error_values
+    }
+}
 
 
 //  ************************************************************
@@ -42,7 +269,6 @@ use super::logging;
 
 pub struct ReedSolomonEncoder {
     n_ec_bytes: usize,
-    //n_degree_max: usize,
     gen_poly: Poly,
 }
 
@@ -50,11 +276,7 @@ impl ReedSolomonEncoder {
     //  ************************************************************
     pub fn new(n_ec_bytes: usize) -> Self {
         let gen_poly = Poly::generator(n_ec_bytes);
-        ReedSolomonEncoder {
-            n_ec_bytes,
-            //n_degree_max,
-            gen_poly,
-        }
+        ReedSolomonEncoder { n_ec_bytes, gen_poly }
     }
 
     //  ************************************************************
@@ -85,8 +307,127 @@ impl ReedSolomonEncoder {
     }
 }
 
-// TODO: Tests for encode
 
+//  ************************************************************
+#[cfg(test)]
+//  ************************************************************
+
+mod encode_decode {
+    use super::super::ErrorCorrectionLevel;
+    use super::*;
+    use prng::Rng;
+    use qr;
+
+    #[test]
+    fn enc_dec_ok() {
+        enc_dec(true)
+    }
+
+    #[test]
+    fn enc_dec_err() {
+        enc_dec(false)
+    }
+
+    fn enc_dec(ok: bool) {
+        // If tests are failing, the loglevel can be increased to identify the cause
+        // logging::set_loglevel(3);
+
+        // Collect all the Error Correction Blocks used by QR Codes
+        let mut ecb_vec = Vec::with_capacity(2 * 40 * 4);
+        for version in qr::VERSION_MIN..=qr::VERSION_MAX {
+            for &ec in [ErrorCorrectionLevel::L, ErrorCorrectionLevel::M, ErrorCorrectionLevel::Q, ErrorCorrectionLevel::H].iter() {
+                let [ecb1, ecb2] = qr::ec_blocks(version, ec);
+                if ecb1.c > 0 {
+                    ecb_vec.push(ecb1);
+                }
+                if ecb2.c > 0 {
+                    ecb_vec.push(ecb2);
+                }
+            }
+        }
+
+        // Remove duplicates, so we only test each Error Correction Block type once
+        ecb_vec.sort_unstable_by_key(ecb_ord);
+        ecb_vec.dedup_by_key(ecb_ord_mut);
+        println!("{} Error Correction Blocks to test: {:?}", ecb_vec.len(), ecb_vec);
+
+        for &seed in [1, 2, 3, 5, 7, 11, 13].iter() {
+            let mut rng = Rng::new(seed);
+            let mut prev_e = 7;
+            let mut encoder = ReedSolomonEncoder::new(prev_e);
+            for ecb in ecb_vec.iter() {
+                let e = ecb.c - ecb.k;
+                println!("\n\n========== TEST ECB ==========> seed={} c={} k={} e={} r={}", seed, ecb.c, ecb.k, e, ecb.r);
+                if e != prev_e {
+                    prev_e = e;
+                    encoder = ReedSolomonEncoder::new(prev_e);
+                }
+                let mut data = rng.get_u8_vec(ecb.k);
+                let mut parity = encoder.encode(&data);
+                assert!(parity.len() == e, "wrong number of error correction bytes produced by encode");
+                let (n_min, n_max) = if ok { (0, e / 2) } else { (e / 2 + 1, e - 1) };
+                for n_introduced_errors in n_min..n_max {
+                    println!(
+                        "\n========== TEST ONE ==========> seed={} c={} k={} e={} r={}, n_introduced_errors={}",
+                        seed, ecb.c, ecb.k, e, ecb.r, n_introduced_errors
+                    );
+                    let mut noisy_data = data.clone();
+                    let mut noisy_parity = parity.clone();
+                    let error_positions = rng.get_usize_unique_clamped_vec(n_introduced_errors, 0, ecb.c - 1);
+                    for pos in error_positions {
+                        let noise = rng.get_u8_clamped(1, 255);
+                        trace!(
+                            "========== introducing noise: pos={:3} noise=0x{:02X}=0b_{:08b} in_data={}",
+                            pos,
+                            noise,
+                            noise,
+                            pos < ecb.k
+                        );
+                        if pos < ecb.k {
+                            noisy_data[pos] ^= noise;
+                        } else {
+                            noisy_parity[pos - ecb.k] ^= noise;
+                        }
+                    }
+                    let res = reed_solomon_decoder::correct(&mut noisy_data, &noisy_parity);
+                    println!(
+                        "========== RESULT ==========> seed={} c={} k={} e={} r={}, n_introduced_errors={} res={:?}",
+                        seed, ecb.c, ecb.k, e, ecb.r, n_introduced_errors, res
+                    );
+                    if ok {
+                        match res {
+                            Ok(grade) => {
+                                if n_introduced_errors == 0 {
+                                    assert!(grade == 4, "expected grade 4 when no errors where introduced");
+                                } else {
+                                    assert!(grade > 0, "expected grade>0 when only few errors where introduced");
+                                }
+                                assert!(data == noisy_data, "errors not corrected correctly");
+                            }
+                            Err(e) => panic!(e),
+                        }
+                    } else {
+                        assert!(
+                            res.is_err(),
+                            "introduced {} errors; but only {} should have been correctable",
+                            n_introduced_errors,
+                            e / 2
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    fn ecb_ord(ecb: &qr::ECB) -> (usize, usize, usize) {
+        (ecb.c - ecb.k, ecb.k, ecb.r)
+    }
+
+    fn ecb_ord_mut(ecb: &mut qr::ECB) -> (usize, usize, usize) {
+        (ecb.c - ecb.k, ecb.k, ecb.r)
+    }
+
+}
 
 //  ************************************************************
 /// Polynomial over finite field
@@ -109,17 +450,107 @@ impl Poly {
     }
 
     //  ************************************************************
-    pub fn simplify(&mut self) {
+    pub fn new_one(nbytes: usize) -> Self {
+        let mut c = Vec::with_capacity(nbytes);
+        c.push(G(1));
+        for _ in 0..nbytes - 1 {
+            c.push(G(0));
+        }
+        Poly { c }
+    }
+
+    //  ************************************************************
+    pub fn degree(&self) -> usize {
+        let mut i = self.c.len();
+        while i > 1 {
+            i -= 1;
+            if self.c[i] != G(0) {
+                return i;
+            }
+        }
+        0
+    }
+
+    //  ************************************************************
+    pub fn simplify(&mut self) -> usize {
         let mut i = self.c.len();
         while i > 1 {
             i -= 1;
             if self.c[i] == G(0) {
                 self.c.pop();
             } else {
-                return;
+                return i;
             }
         }
+        0
     }
+
+    //  ************************************************************
+    pub fn truncate(&mut self, degree: usize) -> usize {
+        self.c.truncate(degree + 1);
+        self.simplify()
+    }
+
+    //  ************************************************************
+    pub fn reverse(&mut self) {
+        self.simplify();
+        let n = self.c.len();
+        for i in 0..n / 2 {
+            self.c.swap(i, n - i - 1);
+        }
+    }
+
+    //  ************************************************************
+    pub fn mul_add(&mut self, factor: G, poly: &Poly) {
+        debug_assert!(self.c.len() == poly.c.len());
+        #[allow(clippy::needless_range_loop)]
+        for i in 0..self.c.len() {
+            self.c[i] += factor * poly[i];
+        }
+    }
+
+    //  ************************************************************
+    pub fn eval(&self, x: G) -> G {
+        let n = self.degree();
+        let mut v = self.c[n];
+        for jj in 1..=n {
+            let j = n - jj;
+            v = self.c[j] + v * x;
+        }
+        v
+    }
+
+    //  ************************************************************
+    pub fn find_roots(&self) -> Vec<G> {
+        let mut roots = Vec::with_capacity(self.degree());
+        let n = self.degree();
+        for rr in 0..=255 {
+            let r = G(rr);
+            let v = self.eval(r);
+            if v == G(0) {
+                roots.push(r);
+                if roots.len() >= n {
+                    return roots;
+                }
+            }
+        }
+        roots
+    }
+
+    //  ************************************************************
+    pub fn derivative(&self) -> Self {
+        let n = self.c.len() - 1;
+        let mut der = Poly::new(n);
+        for i in 0..n {
+            let mut p = self.c[i + 1];
+            for _ in 1..=i {
+                p += self.c[i + 1];
+            }
+            der.c[i] = p;
+        }
+        der
+    }
+
 
     //  ************************************************************
     pub fn generator(nbytes: usize) -> Self {
@@ -131,12 +562,12 @@ impl Poly {
         if nbytes == 0 {
             return genpoly;
         }
-        genpoly[0u8] = GF285_EXP[0];
-        genpoly[1u8] = GF285_EXP[0];
+        genpoly[0u8] = G(0).exp();
+        genpoly[1u8] = G(0).exp();
         let mut tp = Poly::new(nbytes);
-        tp[1u8] = GF285_EXP[0];
+        tp[1u8] = G(0).exp();
         for i in 1..nbytes {
-            tp[0u8] = GF285_EXP[i % 256]; // set up x+a^n
+            tp[0u8] = G((i % 256) as u8).exp(); // set up x+a^n
             genpoly = &genpoly * &tp;
         }
         trace!("Poly::generator done; n={}, genpoly={:?} ~ {}", nbytes, genpoly, genpoly);
@@ -145,12 +576,7 @@ impl Poly {
 
     //  ************************************************************
     pub fn coef(&self) -> Vec<u8> {
-        self.c
-            .iter()
-            .map(|&g| {
-                let idx: usize = g.into();
-                GF285_LOG[idx].into()
-            }).collect()
+        self.c.iter().map(|g| g.log().into()).collect()
     }
 }
 
@@ -158,6 +584,13 @@ impl Poly {
 impl fmt::Display for Poly {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         self.coef().fmt(f)
+    }
+}
+
+//  ************************************************************
+impl From<Vec<G>> for Poly {
+    fn from(c: Vec<G>) -> Poly {
+        Poly { c }
     }
 }
 
@@ -225,8 +658,80 @@ impl<'a> Mul for &'a Poly {
         dst.simplify();
         insane!("Poly::Mul::mul dst={:?}", dst.c);
         trace!("Poly::Mul::mul dst={}", dst);
-        trace!("Poly::Mul::mul done");
         dst
+    }
+}
+
+
+//  ************************************************************
+/// polynomial addition
+//  ************************************************************
+
+impl<'a> AddAssign<&'a Poly> for Poly {
+    fn add_assign(&mut self, other: &Poly) {
+        for i in 0..self.c.len() {
+            self.c[i] += other.c[i];
+        }
+    }
+}
+
+
+//  ************************************************************
+/// polynomial subtraction
+//  ************************************************************
+
+impl<'a> SubAssign<&'a Poly> for Poly {
+    fn sub_assign(&mut self, other: &Poly) {
+        for i in 0..self.c.len() {
+            self.c[i] -= other.c[i];
+        }
+    }
+}
+
+
+//  ************************************************************
+/// multiply scalar with polynomial
+//  ************************************************************
+
+impl MulAssign<G> for Poly {
+    fn mul_assign(&mut self, factor: G) {
+        for i in 0..self.c.len() {
+            self.c[i] *= factor;
+        }
+    }
+}
+
+//  ************************************************************
+/// polynomial scaling
+//  ************************************************************
+
+impl ShlAssign<usize> for Poly {
+    #[allow(clippy::suspicious_op_assign_impl)]
+    fn shl_assign(&mut self, shift: usize) {
+        let n = self.c.len();
+        if shift >= n {
+            warn!("Poly:ShlAssign: ALL BITS SHIFTED OUT {:?} <<= {}", self.c, shift);
+            for i in 0..n {
+                self.c[i] = G(0);
+            }
+            return;
+        }
+
+        let mut sp = 0;
+        for i in n - shift..n {
+            if self.c[i - 1] != G(0) {
+                sp += 1;
+            }
+        }
+        if sp > 0 {
+            warn!("Poly:ShlAssign: VALUES SHIFTED OUT {}: {:?} << {}", sp, self.c, shift);
+        }
+        for i in 1..n + 1 - shift {
+            self.c[n - i] = self.c[n - i - shift];
+        }
+        for i in 0..shift {
+            self.c[i] = G(0);
+        }
     }
 }
 
@@ -278,6 +783,23 @@ mod poly {
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct G(u8);
 
+//  ************************************************************
+impl G {
+    pub fn exp(self) -> Self {
+        GF285_EXP[self.0 as usize]
+    }
+    pub fn log(self) -> Self {
+        GF285_LOG[self.0 as usize]
+    }
+    pub fn log_inv(self) -> Self {
+        // log of the inverse
+        // the inverse is GF285_EXP[255u8 - GF285_LOG[self.0 as usize]]
+        // so to get the log of the inverse simply remove the GF285_EXP term
+        G(255u8 - GF285_LOG[self.0 as usize].0)
+    }
+}
+
+//  ************************************************************
 impl From<G> for u8 {
     fn from(g: G) -> u8 {
         g.0
@@ -306,6 +828,43 @@ impl Mul for G {
     }
 }
 
+
+//  ************************************************************
+impl MulAssign for G {
+    fn mul_assign(&mut self, other: G) {
+        // Galois field multiplication
+        if self.0 == 0 {
+            return;
+        }
+        if other.0 == 0 {
+            self.0 = 0
+        } else {
+            let i = u16::from(GF285_LOG[self.0 as usize].0);
+            let j = u16::from(GF285_LOG[other.0 as usize].0);
+            let e = GF285_EXP[((i + j) % 255) as usize];
+            self.0 = e.0
+        }
+    }
+}
+
+//  ************************************************************
+impl Div for G {
+    type Output = G;
+
+    fn div(self, other: G) -> G {
+        // Galois field division
+        if self.0 == 0 {
+            return G(0);
+        }
+        if other.0 == 0 {
+            panic!("cannot divide by zero in galois field");
+        }
+        let i = u16::from(GF285_LOG[self.0 as usize].0);
+        let j = u16::from(GF285_LOG[other.0 as usize].0);
+        GF285_EXP[((255 + i - j) % 255) as usize]
+    }
+}
+
 //  ************************************************************
 impl Not for G {
     type Output = G;
@@ -330,6 +889,24 @@ impl AddAssign for G {
 impl Add for G {
     type Output = G;
     fn add(self, other: G) -> G {
+        G(self.0 ^ other.0)
+    }
+}
+
+
+//  ************************************************************
+impl SubAssign for G {
+    fn sub_assign(&mut self, other: G) {
+        *self = *self - other;
+    }
+}
+
+//  ************************************************************
+
+#[allow(clippy::suspicious_arithmetic_impl)]
+impl Sub for G {
+    type Output = G;
+    fn sub(self, other: G) -> G {
         G(self.0 ^ other.0)
     }
 }
@@ -465,6 +1042,28 @@ mod galois {
             }
         }
     }
+
+    #[test]
+    fn div_mul_inverse() {
+        for i in 0..=255 {
+            let a = G(i);
+            for j in 1..=255 {
+                let b = G(j);
+                let c = a / b;
+                let bc = b * c;
+                assert!(
+                    a == b * c,
+                    "division is not inverse of multiplication: a={:?} b={:?} a/b={:?} b*(a/b)={:?}!={:?}",
+                    a,
+                    b,
+                    c,
+                    bc,
+                    a
+                );
+            }
+        }
+    }
+
 
     #[test]
     fn not_self_inverse() {
