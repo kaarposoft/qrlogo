@@ -1228,7 +1228,7 @@ impl Iterator for SnakeDataIterator {
         if self.first {
             self.first = false;
             let (x, y) = (self.x + self.dx, self.y);
-            trace!("SnakeDataIterator: first [{}, {}]", x, y);
+            insane!("SnakeDataIterator: first [{}, {}]", x, y);
             return Some((x, y));
         }
         loop {
@@ -1251,9 +1251,9 @@ impl Iterator for SnakeDataIterator {
                     }
                 };
                 if turn {
-                    trace!("SnakeDataIterator: next turning");
+                    insane!("SnakeDataIterator: next turning");
                     if self.x < 2 {
-                        trace!("SnakeDataIterator: next None");
+                        insane!("SnakeDataIterator: next None");
                         return None;
                     }
                     self.up = !self.up;
@@ -1267,9 +1267,9 @@ impl Iterator for SnakeDataIterator {
             }
             let (x, y) = (self.x + self.dx, self.y);
             if self.get_mark(x, y) {
-                trace!("SnakeDataIterator: skipping [{}, {}]", x, y);
+                insane!("SnakeDataIterator: skipping [{}, {}]", x, y);
             } else {
-                trace!("SnakeDataIterator: next [{}, {}]", x, y);
+                insane!("SnakeDataIterator: next [{}, {}]", x, y);
                 return Some((x, y));
             }
         }
