@@ -61,9 +61,17 @@ function qrdecode_onload() {
 
 /* ************************************************************ */
 function on_logo_loaded() {
-	document.getElementById("ondecode_button").disabled = false;
 	document.getElementById("div_decoded").style.display = "none";
-	document.getElementById("div_debug").style.display = "none";
+	if (qrlogo_wasm_loaded) {
+		console.log("waiting for qrlogo_wasm_loaded before enabeling ondecode button");
+		qrlogo_wasm_loaded.then( () => {
+			console.log("qrlogo_wasm_loaded so enabeling ondecode button");
+			document.getElementById("ondecode_button").disabled = false;
+		});
+	} else {
+		console.error("qrlogo_wasm_loaded not set");
+	}
+
 }
 
 
@@ -81,31 +89,20 @@ function qrdecode_ondecode() {
 	console.info("qrdecode_ondecode: Decoding QR Code");
 	console.time("qrdecode_ondecode");
 
-	document.getElementById("qrlogo_text").value = "";
-
-	var qr = new QRCodeDecode();
-
-	var debug = document.getElementById("qrlogo_debug_checkbox").checked;
-	var logger;
-	if (debug) {
-		logger = new Logger("div_debug_output");
-		logger.init();
-		qr.logger = logger;
-		document.getElementById("div_debug").style.display = "block";
-	}
-
 	var canvas = document.getElementById("qrlogo_canvas");
 	var ctx = canvas.getContext("2d");
-	var imagedata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	var image_data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	var decoding_result = qrlogo_wasm.decode_from_image_data(image_data, true);
 
-	var decoded = qr.decodeImageData(imagedata, canvas.width, canvas.height);
-
-	document.getElementById("qrlogo_text").value = decoded;
-
-	document.getElementById("div_decoded").style.display = "block";
-
+	console.info("decoding_result:");
+	console.log(decoding_result);
 	console.timeEnd("qrdecode_ondecode");
+
+	if (typeof decoding_result.err !== 'undefined') {
+		console.error(decoding_result.err);
+		alert(decoding_result.err);
+	} else {
+		document.getElementById("qrlogo_text").value = decoding_result.data;
+		document.getElementById("div_decoded").style.display = "block";
+	}
 }
-
-
-

@@ -22,11 +22,23 @@
 
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
+        <script type="text/javascript">
+            qrlogo_wasm_loaded = null;
+            if (!window.Promise) {
+                console.error("Browser does not support Promise");
+                alert("Browser does not support Promise");
+            } else {
+                qrlogo_wasm_loaded = new Promise(function(resolve, reject){
+                    qrlogo_wasm_loaded_resolve = resolve;
+                });
+            }
+        </script>
+
 	<script type="text/javascript" src="modernizr.js"></script>
 	<script type="text/javascript" src="common.js"></script>
-	<script type="text/javascript" src="reedsolomon.js"></script>
-	<script type="text/javascript" src="qrcodedecode.js"></script>
 	<script type="text/javascript" src="qrdecode.js"></script>
+
+	<script type="text/javascript" src="qrlogo_wasm.js" defer></script>
 
 	<link rel="StyleSheet" type="text/css" href="default.css">
 	<link rel="shortcut icon" href="favicon.ico" />
@@ -79,8 +91,6 @@
                     <input type="file" id="qrlogo_files" name="files[]" onchange="on_logo_file_upload(event);"/>
                 <p>
                 <canvas width="10" height="10" id="qrlogo_canvas"></canvas>
-                <p>
-                <input id="qrlogo_debug_checkbox" type="checkbox">Produce debug output
         </div>
 
         <div class="buttons">
@@ -93,12 +103,6 @@
     <div id="div_decoded" class="section" style="display:none">
         <h2>Decoded QR code</h2>
         <textarea id="qrlogo_text" rows="10" cols="40"></textarea>
-    </div>
-
-    <div id="div_debug" class="section" style="display:none">
-        <h2>Debug output</h2>
-        <div id="div_debug_output">
-        </div>
     </div>
 
 </body>
