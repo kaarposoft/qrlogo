@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+width="486px" height="486px" viewBox="0 0 486 486" enable-background="new 0 0 486 486" xml:space="preserve">
+<rect x="0" y="0" width="486" height="486" fill="rgb(255,255,255)" /><g transform="translate(18,18)"><g><defs>
+    <radialGradient id="grad">
+    <stop offset="5%" stop-color="rgb(92,139,41)" />
+    <stop offset="95%" stop-color="rgb(37,73,47)" />
+    </radialGradient>
+<mask id="gmask"><g>
+<g transform="translate(198,0) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(252,0) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(144,18) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(216,18) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(234,18) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(252,18) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(288,18) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(144,36) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(288,36) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(144,54) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(162,54) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(180,54) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(234,54) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(270,54) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(288,54) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(162,72) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(180,72) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(198,72) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(234,72) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(288,72) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(180,90) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(198,90) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(234,90) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(288,90) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(144,108) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(180,108) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(216,108) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(252,108) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(288,108) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(144,126) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(162,126) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(180,126) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(198,126) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(216,126) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(252,126) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(288,126) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(0,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(108,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(144,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(198,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(234,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(252,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(306,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375V0H34.375C24.87,0,16.764,3.353,10.059,10.059S0,24.87,0,34.375V100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(324,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(378,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375V0H34.375C24.87,0,16.764,3.353,10.059,10.059S0,24.87,0,34.375V100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(396,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(414,144) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(0,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(36,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(72,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375V0H34.375C24.87,0,16.764,3.353,10.059,10.059S0,24.87,0,34.375V100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(90,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(144,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(162,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(252,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(270,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(306,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(342,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375V0H34.375C24.87,0,16.764,3.353,10.059,10.059S0,24.87,0,34.375V100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(360,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(378,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(396,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(414,162) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(0,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(54,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375V0H34.375C24.87,0,16.764,3.353,10.059,10.059S0,24.87,0,34.375V100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(72,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(90,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(108,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(162,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(180,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(198,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(216,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(252,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(270,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(288,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(324,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(342,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(378,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(414,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(432,180) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(18,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375V0H34.375C24.87,0,16.764,3.353,10.059,10.059S0,24.87,0,34.375V100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(36,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(54,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(72,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(90,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(144,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375V0H34.375C24.87,0,16.764,3.353,10.059,10.059S0,24.87,0,34.375V100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(162,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(216,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(252,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(288,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(378,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(432,198) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(18,216) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(54,216) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(72,216) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(108,216) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(126,216) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(144,216) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(216,216) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(288,216) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(324,216) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(432,216) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(0,234) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(144,234) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(162,234) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(234,234) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(252,234) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(270,234) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(342,234) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(414,234) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(0,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(36,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375V0H34.375C24.87,0,16.764,3.353,10.059,10.059S0,24.87,0,34.375V100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(54,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(108,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(162,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(180,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(198,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(216,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(270,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(288,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(324,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(342,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(360,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(378,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(414,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(432,252) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(0,270) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(36,270) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(90,270) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(126,270) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(198,270) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(306,270) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(342,270) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(378,270) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(396,270) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(432,270) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(0,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(36,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(54,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(108,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(126,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(144,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(198,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(216,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(234,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(270,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(288,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(306,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(324,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(342,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(360,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(396,288) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(144,306) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(162,306) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(180,306) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(216,306) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(234,306) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(288,306) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(360,306) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(180,324) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(198,324) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(288,324) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(324,324) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(360,324) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(432,324) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 50,0 50,0 0,100 "/>
+</g></g><g transform="translate(180,342) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(270,342) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375V0H34.375C24.87,0,16.764,3.353,10.059,10.059S0,24.87,0,34.375V100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(288,342) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(360,342) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(414,342) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(432,342) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(180,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(198,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(216,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(234,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(252,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(270,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(288,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(306,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(324,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(342,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(360,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(396,360) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(162,378) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(198,378) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(252,378) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(288,378) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v65.625c0,9.506,3.353,17.611,10.059,24.316S24.87,100,34.375,100H100V0z"/>
+</g>
+</g></g><g transform="translate(306,378) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(324,378) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,0H0v100h65.625c9.506,0,17.611-3.354,24.316-10.059S100,75.131,100,65.625V0z"/>
+</g>
+</g></g><g transform="translate(414,378) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(432,378) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375c0-9.505-3.354-17.611-10.059-24.316S75.131,0,65.625,0H0v100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(180,396) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(234,396) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(378,396) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(396,396) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(432,396) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(198,414) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(252,414) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(288,414) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<g>
+	<path d="M100,34.375V0H34.375C24.87,0,16.764,3.353,10.059,10.059S0,24.87,0,34.375V100h100V34.375z"/>
+</g>
+</g></g><g transform="translate(306,414) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(342,414) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(360,414) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(432,414) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(144,432) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="100,100 0,50 0,50 100,0 "/>
+</g></g><g transform="translate(162,432) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<rect width="100" height="100"/>
+</g></g><g transform="translate(180,432) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,100 100,50 100,50 0,0 "/>
+</g></g><g transform="translate(216,432) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(288,432) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g><g transform="translate(378,432) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="99.999,49.999 99.998,49.999 49.999,0 0,49.999 -0.001,49.999 -0.001,50 0,50 49.999,99.999 99.998,50 99.999,50 
+	99.998,50 "/>
+</g></g><g transform="translate(432,432) scale(0.185,0.185)"><g transform="" style="fill: rgb(255, 255, 255);">
+<polygon points="0,-0.001 50,99.999 50,99.999 100,-0.001 "/>
+</g></g></g></mask></defs></g><rect x="0" y="0" width="450" height="450" fill="url(#grad)" mask="url(#gmask)" /><g transform="translate(0,0) scale(1.26, 1.26)"><g transform="" style="fill: rgb(63, 107, 43);">
+<path d="M21.475,99.992c-6.648,0-12.964-6.852-13.958-13.207L0.011-0.008l88.112,5.649c6.212,0.931,11.096,6.804,11.104,13.848
+	l0.762,80.503H21.475z M85.706,85.71l-0.544-57.492c-0.005-5.029-3.495-9.233-7.931-9.898l-62.938-4.03l5.36,61.98
+	c0.71,4.536,5.222,9.44,9.971,9.44H85.706z"/>
+</g></g><g transform="translate(324,0) scale(1.26, 1.26)"><g transform=" translate(100, 0) scale(-1,1) " style="fill: rgb(63, 107, 43);">
+<path d="M21.475,99.992c-6.648,0-12.964-6.852-13.958-13.207L0.011-0.008l88.112,5.649c6.212,0.931,11.096,6.804,11.104,13.848
+	l0.762,80.503H21.475z M85.706,85.71l-0.544-57.492c-0.005-5.029-3.495-9.233-7.931-9.898l-62.938-4.03l5.36,61.98
+	c0.71,4.536,5.222,9.44,9.971,9.44H85.706z"/>
+</g></g><g transform="translate(0,324) scale(1.26, 1.26)"><g transform=" translate(0,100) scale(1,-1) " style="fill: rgb(63, 107, 43);">
+<path d="M21.475,99.992c-6.648,0-12.964-6.852-13.958-13.207L0.011-0.008l88.112,5.649c6.212,0.931,11.096,6.804,11.104,13.848
+	l0.762,80.503H21.475z M85.706,85.71l-0.544-57.492c-0.005-5.029-3.495-9.233-7.931-9.898l-62.938-4.03l5.36,61.98
+	c0.71,4.536,5.222,9.44,9.971,9.44H85.706z"/>
+</g></g><g transform="translate(36,36) scale(0.54, 0.54)"><g transform="" style="fill: rgb(96, 165, 65);">
+<path d="M21.468,99.999c-6.65,0-12.966-6.875-13.959-13.225L0.003-0.001L88.13,5.638c6.21,0.93,11.099,6.823,11.105,13.866
+	l0.762,80.495H21.468z"/>
+</g></g><g transform="translate(360,36) scale(0.54, 0.54)"><g transform=" translate(100, 0) scale(-1,1) " style="fill: rgb(96, 165, 65);">
+<path d="M21.468,99.999c-6.65,0-12.966-6.875-13.959-13.225L0.003-0.001L88.13,5.638c6.21,0.93,11.099,6.823,11.105,13.866
+	l0.762,80.495H21.468z"/>
+</g></g><g transform="translate(36,360) scale(0.54, 0.54)"><g transform=" translate(0,100) scale(1,-1) " style="fill: rgb(96, 165, 65);">
+<path d="M21.468,99.999c-6.65,0-12.966-6.875-13.959-13.225L0.003-0.001L88.13,5.638c6.21,0.93,11.099,6.823,11.105,13.866
+	l0.762,80.495H21.468z"/>
+</g></g></g></svg>

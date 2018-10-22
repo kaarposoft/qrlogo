@@ -25,4 +25,5 @@ cd "$(dirname "$0")/.."
 printf "\n>>> >>> %s\n" "format"
 rustup run "${RUST_TOOLCHAIN}" rustfmt --verbose src/lib.rs
 rustup run "${RUST_TOOLCHAIN}" rustfmt --verbose examples/*
+rustup run "${RUST_TOOLCHAIN}" rustfmt --verbose tests/*
 printf "\n>>> >>> %s\n" "done"
